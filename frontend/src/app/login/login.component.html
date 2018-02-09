@@ -1,0 +1,28 @@
+<form [formGroup]="form" (ngSubmit)="f.form.valid" #f="ngForm">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <span color="primary" class="title">登录</span>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-input-container class="full-width">
+        <input matInput type="text" id="username" name="username" [(ngModel)]="model.username" placeholder="用户名"
+               formControlName="username">
+      </mat-input-container>
+      <mat-input-container class="full-width">
+        <input matInput type="password" id="password" name="password" [(ngModel)]="model.password"
+               placeholder="密码"
+               formControlName="password">
+      </mat-input-container>
+      <div>
+        <mat-radio-group>
+          <mat-radio-button [value]="1" id="BuyerOption">Buyer</mat-radio-button>
+          <mat-radio-button [value]="2" id="SellerOption">Seller</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <button mat-raised-button type="submit" class="loginButton" color="primary" id="loginButton">Login
+      </button>
+    </mat-card-content>
+  </mat-card>
+</form>
