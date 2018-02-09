@@ -9,6 +9,9 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
+/**
+ * @author yinan
+ */
 @Configuration
 @PropertySource("classpath:application.properties")
 @EnableMongoRepositories(basePackages = "com.netease.yinanmall.db")

@@ -7,6 +7,8 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.File;
+
 /**
  * @author yinan
  */
@@ -15,11 +17,20 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Buyer {
+public class Goods {
     @Id
-    private Integer buyerId;
+    private Integer goodsId;
 
-    private String username;
+    private String title;
 
-    private String password;
+    private String imgUrl;
+
+    private Double price;
+
+    private File imgFile;
+
+    private String introduction;
+
+    private String detail;
+
 }

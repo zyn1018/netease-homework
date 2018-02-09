@@ -1,10 +1,10 @@
 package com.netease.yinanmall.db;
 
-import com.netease.yinanmall.pojo.Buyer;
+import com.netease.yinanmall.pojo.Seller;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 /**
  * @author yinan
  */
-public interface BuyerRepository extends MongoRepository<Buyer, Integer> {
+public interface SellerRepository extends MongoRepository<Seller, Integer> {
 }
