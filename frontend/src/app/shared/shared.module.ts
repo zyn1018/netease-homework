@@ -1,5 +1,8 @@
 import {NgModule} from '@angular/core';
-import {MatButtonModule, MatCardModule, MatInputModule, MatRadioModule, MatToolbarModule} from '@angular/material';
+import {
+  MatButtonModule, MatCardModule, MatGridList, MatGridListModule, MatInputModule, MatRadioModule, MatTabsModule,
+  MatToolbarModule
+} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
@@ -16,7 +19,9 @@ import {CommonModule} from '@angular/common';
     MatInputModule,
     MatRadioModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatGridListModule,
+    MatTabsModule
   ]
 })
 export class SharedModule {
