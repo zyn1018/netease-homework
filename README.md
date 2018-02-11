@@ -4,5 +4,5 @@
 
 ## Implemented by: 
 + Spring Boot
-+ Angular 4
++ Angular 5
 + MongoDB
