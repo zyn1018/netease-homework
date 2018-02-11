@@ -1,6 +1,6 @@
-import {product} from "../domain/product";
+import {Product} from "../domain/Product";
 
-export const products: product[] = [
+export const products: Product[] = [
   {
     productId: 1,
     title: 'DBMS',

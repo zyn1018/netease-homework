@@ -1,19 +1,20 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
+import {AppRoutingModule} from './app-routing.module';
 
-import { AppComponent } from './app.component';
+import {AppComponent} from './app.component';
 import {CoreModule} from './core/core.module';
 import {LoginComponent} from './login/login.component';
-import {ProductListComponent} from './product-list/product-list.component';
-
+import {ProductDetailComponent} from './product-detail/product-detail.component';
+import {CartSidebarComponent} from './cart-sidebar/cart-sidebar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    ProductListComponent,
+    ProductDetailComponent,
+    CartSidebarComponent
   ],
   imports: [
     CoreModule,
@@ -23,4 +24,5 @@ import {ProductListComponent} from './product-list/product-list.component';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

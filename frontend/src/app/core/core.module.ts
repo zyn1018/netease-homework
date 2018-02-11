@@ -5,6 +5,7 @@ import {FooterComponent} from './footer/footer.component';
 import {SharedModule} from '../shared/shared.module';
 import {CenterComponent} from './center/center.component';
 import {RouterModule} from '@angular/router';
+import {UserService} from "../service/UserService";
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import {RouterModule} from '@angular/router';
     CenterComponent,
     FooterComponent,
     SharedModule,
-  ]
+  ],
+  providers: [UserService]
 })
 export class CoreModule {
 }

@@ -1,6 +1,11 @@
 <mat-toolbar color="primary">
-  <button mat-button id="yinanMallButton" class="word" [routerLink]="['/home']">Yinan Mall</button>
+  <button mat-button id="loginButton" *ngIf="!isLogin" [routerLink]="['/login']">登录</button>
+  <button mat-button *ngIf="isLogin" (click)="logout()">
+    退出
+  </button>
   <span class="fill-remaining-space"></span>
-  <button mat-button id="loginButton" [routerLink]="['/login']">登录</button>
-
+  <button mat-button [routerLink]="['/home']">首页</button>
+  <button mat-button *ngIf="isLogin && !isBuyer">发布</button>
+  <button mat-button *ngIf="isLogin && isBuyer">账务</button>
+  <button mat-button *ngIf="isLogin && isBuyer" (click)="openSidebar()">购物车</button>
 </mat-toolbar>

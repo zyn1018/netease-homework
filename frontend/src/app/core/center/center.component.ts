@@ -1,6 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {product} from "../../domain/product";
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {Product} from "../../domain/Product";
 import {products} from "../../utils/mock-products";
+import {Router} from "@angular/router";
+import {UserService} from "../../service/UserService";
 
 @Component({
   selector: 'app-center',
@@ -8,12 +10,28 @@ import {products} from "../../utils/mock-products";
   styleUrls: ['./center.component.css']
 })
 export class CenterComponent implements OnInit {
-  products: product[];
-  constructor() {
+  products: Product[];
+  isLogin: boolean;
+  isBuyer: boolean;
+
+  constructor(private router: Router,
+              private userService: UserService,
+              private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
-    this.products = products
+    this.products = products;
+    this.userService.getIsLoginSubject().subscribe(data => {
+      this.isLogin = data;
+    });
+    this.userService.getIsBuyerSubject().subscribe(data => {
+      this.isBuyer = data;
+    });
+    this.cdr.markForCheck();
+    this.cdr.detectChanges();
   }
 
+  goToProductDetail(product: Product) {
+    this.router.navigateByUrl('/products/' + product.productId);
+  }
 }

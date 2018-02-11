@@ -4,7 +4,7 @@
       <div class="productList">
         <mat-grid-list cols="4" rowHeight="300px" gutterSize="1em">
           <mat-grid-tile *ngFor="let product of products">
-            <mat-card>
+            <mat-card (click)="goToProductDetail(product)">
               <mat-card-title>{{product.title}}</mat-card-title>
               <mat-card-content style="font-size: large; font-family: Impact">
                 <img class="image" mat-card-image [src]="product.imgUrl"/>

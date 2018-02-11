@@ -1,6 +1,9 @@
 import {NgModule} from '@angular/core';
 import {
-  MatButtonModule, MatCardModule, MatGridList, MatGridListModule, MatInputModule, MatRadioModule, MatTabsModule,
+  MatButtonModule, MatCardModule, MatDividerModule, MatGridList, MatGridListModule, MatIconModule, MatInputModule,
+  MatListModule,
+  MatRadioModule, MatSidenavModule,
+  MatTabsModule,
   MatToolbarModule
 } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -21,7 +24,11 @@ import {CommonModule} from '@angular/common';
     FormsModule,
     ReactiveFormsModule,
     MatGridListModule,
-    MatTabsModule
+    MatTabsModule,
+    MatDividerModule,
+    MatListModule,
+    MatIconModule,
+    MatSidenavModule
   ]
 })
 export class SharedModule {
