@@ -11,6 +11,7 @@ import {UserService} from "../../service/UserService";
 })
 export class CenterComponent implements OnInit {
   products: Product[];
+  notBoughtproducts: Product[];
   isLogin: boolean;
   isBuyer: boolean;
 
@@ -21,6 +22,7 @@ export class CenterComponent implements OnInit {
 
   ngOnInit() {
     this.products = products;
+    this.notBoughtproducts = products.filter(product => product.isBought == false);
     this.userService.getIsLoginSubject().subscribe(data => {
       this.isLogin = data;
     });

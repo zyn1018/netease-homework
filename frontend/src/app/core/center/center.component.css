@@ -6,7 +6,6 @@
 }
 
 mat-grid-list {
-
   margin-left: 5%;
   margin-right: 5%;
 }
@@ -15,4 +14,18 @@ mat-grid-list {
   background-color: lightgrey;
   padding-top: 30px;
   padding-bottom: 30px;
+}
+
+.notBoughtproducts {
+  background-color: lightgrey;
+  padding-top: 30px;
+  padding-bottom: 45px;
+}
+
+mat-card-title {
+  padding-left: 5px;
+}
+
+p {
+  padding-left: 5px;
 }

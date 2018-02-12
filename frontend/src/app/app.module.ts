@@ -8,13 +8,15 @@ import {CoreModule} from './core/core.module';
 import {LoginComponent} from './login/login.component';
 import {ProductDetailComponent} from './product-detail/product-detail.component';
 import {CartSidebarComponent} from './cart-sidebar/cart-sidebar.component';
+import {OrderHistoryComponent} from './order-history/order-history.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     ProductDetailComponent,
-    CartSidebarComponent
+    CartSidebarComponent,
+    OrderHistoryComponent
   ],
   imports: [
     CoreModule,
