@@ -1,8 +1,7 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {Product} from "../domain/Product";
-import {products} from "../utils/mock-products";
-import {DOCUMENT} from "@angular/platform-browser";
-import {Router} from "@angular/router";
+import {Component, OnInit} from '@angular/core';
+import {Product} from '../domain/Product';
+import {products} from '../utils/mock-products';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-product-detail',
@@ -18,7 +17,7 @@ export class ProductDetailComponent implements OnInit {
 
   ngOnInit() {
     this.productId = parseInt(this.router.url.split('/')[2]);
-    this.product = products.find(product => product.productId == this.productId);
+    this.product = products.find(product => product.productId === this.productId);
   }
 
 

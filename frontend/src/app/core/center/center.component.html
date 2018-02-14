@@ -18,7 +18,7 @@
     <mat-tab *ngIf="isLogin && isBuyer" label="未购买的内容">
       <div class="notBoughtproducts">
         <mat-grid-list cols="4" rowHeight="300px" gutterSize="1em">
-          <mat-grid-tile *ngFor="let product of notBoughtproducts">
+          <mat-grid-tile *ngFor="let product of notBoughtProducts">
             <mat-card (click)="goToProductDetail(product)">
               <mat-card-title>{{product.title}}</mat-card-title>
               <mat-card-content style="font-size: large; font-family: Impact">

@@ -8,8 +8,8 @@ import {Router} from "@angular/router";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  isLogin: boolean = false;
-  isBuyer: boolean = false;
+  isLogin = false;
+  isBuyer = false;
   @Output() toggle = new EventEmitter<void>();
 
   constructor(private userService: UserService, private router: Router) {
@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit {
     this.userService.setIsLoginSubject(this.isLogin);
     this.isBuyer = false;
     this.userService.setIsBuyerSubject(this.isBuyer);
-    this.router.navigateByUrl("/login");
+    this.router.navigateByUrl('/login');
   }
 
   openSidebar() {

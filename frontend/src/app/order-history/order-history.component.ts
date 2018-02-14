@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {products} from "../utils/mock-products";
+import {products} from '../utils/mock-products';
 
 @Component({
   selector: 'app-order-history',
@@ -18,11 +18,11 @@ export class OrderHistoryComponent implements OnInit {
 }
 
 export interface OrderHistory {
-  image: string,
-  title: string,
-  time: Date,
-  count: number,
-  price: number
+  image: string;
+  title: string;
+  time: Date;
+  count: number;
+  price: number;
 }
 
 const MOCK_ORDER_HISTORY: OrderHistory[] = [

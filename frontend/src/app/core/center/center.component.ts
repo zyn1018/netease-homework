@@ -1,8 +1,8 @@
 import {ChangeDetectorRef, Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {Product} from "../../domain/Product";
-import {products} from "../../utils/mock-products";
-import {Router} from "@angular/router";
-import {UserService} from "../../service/UserService";
+import {Product} from '../../domain/Product';
+import {products} from '../../utils/mock-products';
+import {Router} from '@angular/router';
+import {UserService} from '../../service/UserService';
 
 @Component({
   selector: 'app-center',
@@ -11,9 +11,9 @@ import {UserService} from "../../service/UserService";
 })
 export class CenterComponent implements OnInit {
   products: Product[];
-  notBoughtproducts: Product[];
-  isLogin: boolean = false;
-  isBuyer: boolean = false;
+  notBoughtProducts: Product[];
+  isLogin = false;
+  isBuyer = false;
 
   constructor(private router: Router,
               private userService: UserService,
@@ -22,7 +22,7 @@ export class CenterComponent implements OnInit {
 
   ngOnInit() {
     this.products = products;
-    this.notBoughtproducts = products.filter(product => product.isBought == false);
+    this.notBoughtProducts = products.filter(product => product.isBought === false);
     this.userService.getIsLoginSubject().subscribe(data => {
       this.isLogin = data;
     });
