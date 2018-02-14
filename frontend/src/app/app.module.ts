@@ -9,6 +9,7 @@ import {LoginComponent} from './login/login.component';
 import {ProductDetailComponent} from './product-detail/product-detail.component';
 import {CartSidebarComponent} from './cart-sidebar/cart-sidebar.component';
 import {OrderHistoryComponent} from './order-history/order-history.component';
+import {PublishProductComponent} from './publish-product/publish-product.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import {OrderHistoryComponent} from './order-history/order-history.component';
     LoginComponent,
     ProductDetailComponent,
     CartSidebarComponent,
-    OrderHistoryComponent
+    OrderHistoryComponent,
+    PublishProductComponent
   ],
   imports: [
     CoreModule,

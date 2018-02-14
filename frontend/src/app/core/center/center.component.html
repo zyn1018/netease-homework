@@ -15,7 +15,7 @@
         </mat-grid-list>
       </div>
     </mat-tab>
-    <mat-tab label="未购买的内容">
+    <mat-tab *ngIf="isLogin && isBuyer" label="未购买的内容">
       <div class="notBoughtproducts">
         <mat-grid-list cols="4" rowHeight="300px" gutterSize="1em">
           <mat-grid-tile *ngFor="let product of notBoughtproducts">

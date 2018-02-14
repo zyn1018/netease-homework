@@ -35,11 +35,10 @@ export class LoginComponent implements OnInit {
     this.userService.setIsLoginSubject(true);
     if (this.form.value.loginRole == 1) {
       this.isBuyer = true;
-      this.userService.setIsBuyerSubject(this.isBuyer)
+      this.userService.setIsBuyerSubject(this.isBuyer);
     } else if (this.form.value.loginRole == 2) {
       this.isBuyer = false;
       this.userService.setIsBuyerSubject(this.isBuyer);
-      console.log(this.form.value.loginRole);
     }
 
     this.router.navigateByUrl('/home');

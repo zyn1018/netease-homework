@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Product} from "../../domain/Product";
 import {products} from "../../utils/mock-products";
 import {Router} from "@angular/router";
@@ -12,8 +12,8 @@ import {UserService} from "../../service/UserService";
 export class CenterComponent implements OnInit {
   products: Product[];
   notBoughtproducts: Product[];
-  isLogin: boolean;
-  isBuyer: boolean;
+  isLogin: boolean = false;
+  isBuyer: boolean = false;
 
   constructor(private router: Router,
               private userService: UserService,
@@ -29,8 +29,6 @@ export class CenterComponent implements OnInit {
     this.userService.getIsBuyerSubject().subscribe(data => {
       this.isBuyer = data;
     });
-    this.cdr.markForCheck();
-    this.cdr.detectChanges();
   }
 
   goToProductDetail(product: Product) {
