@@ -10,6 +10,7 @@ import {ProductDetailComponent} from './product-detail/product-detail.component'
 import {CartSidebarComponent} from './cart-sidebar/cart-sidebar.component';
 import {OrderHistoryComponent} from './order-history/order-history.component';
 import {PublishProductComponent} from './publish-product/publish-product.component';
+import {AddToCartDialogComponent} from './add-to-cart-dialog/add-to-cart-dialog.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {PublishProductComponent} from './publish-product/publish-product.compone
     ProductDetailComponent,
     CartSidebarComponent,
     OrderHistoryComponent,
-    PublishProductComponent
+    PublishProductComponent,
+    AddToCartDialogComponent
   ],
   imports: [
     CoreModule,
@@ -26,7 +28,8 @@ import {PublishProductComponent} from './publish-product/publish-product.compone
     AppRoutingModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [AddToCartDialogComponent]
 })
 export class AppModule {
 }

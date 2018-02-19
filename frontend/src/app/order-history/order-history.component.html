@@ -21,9 +21,9 @@
       <mat-cell class="count" *matCellDef="let orderHistory"> {{orderHistory.count}}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="price">
+    <ng-container matColumnDef="totalPrice">
       <mat-header-cell *matHeaderCellDef>购买价格</mat-header-cell>
-      <mat-cell *matCellDef="let orderHistory"> ￥{{orderHistory.price}}</mat-cell>
+      <mat-cell *matCellDef="let orderHistory"> ￥{{orderHistory.totalPrice}}</mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

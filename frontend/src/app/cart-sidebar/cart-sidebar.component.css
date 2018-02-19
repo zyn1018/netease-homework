@@ -1,0 +1,61 @@
+h3 {
+  margin-left: 15px;
+}
+
+.submitButton {
+  width: 100px;
+  margin-left: 4em;
+  margin-top: 3em;
+}
+
+.cancelButton {
+  width: 100px;
+  margin-left: 110px;
+}
+
+.selectProductTitle {
+  position: absolute;
+  left: 20px;
+}
+
+.selectProductPrice {
+  position: absolute;
+  left: 350px;
+}
+
+.titleColumn {
+  position: absolute;
+  left: 15px;
+}
+
+.countColumn {
+  position: absolute;
+  left: 190px;
+}
+
+.priceColumn {
+  position: absolute;
+  left: 360px;
+}
+
+.productCount {
+  position: absolute;
+  left: 200px;
+}
+
+.priceDetails {
+  margin-left: 1.5em;
+}
+
+.prices {
+  position: absolute;
+  left: 350px;
+  font-family: Impact;
+}
+
+.emptyCart {
+  position: relative;
+  top: 250px;
+  left: 125px;
+}
+

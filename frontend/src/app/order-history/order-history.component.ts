@@ -7,7 +7,7 @@ import {products} from '../utils/mock-products';
   styleUrls: ['./order-history.component.css']
 })
 export class OrderHistoryComponent implements OnInit {
-  displayedColumns = ['image', 'title', 'time', 'count', 'price'];
+  displayedColumns = ['image', 'title', 'time', 'count', 'totalPrice'];
   dataSource = MOCK_ORDER_HISTORY;
 
   constructor() {
@@ -22,9 +22,9 @@ export interface OrderHistory {
   title: string;
   time: Date;
   count: number;
-  price: number;
+  totalPrice: number;
 }
 
 const MOCK_ORDER_HISTORY: OrderHistory[] = [
-  {image: products[1].imgUrl, title: products[1].title, time: new Date(), count: 2, price: products[1].price * 2}
+  {image: products[1].imgUrl, title: products[1].title, time: new Date(), count: 2, totalPrice: products[1].price * 2}
 ];

@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {
   MatButtonModule,
   MatCardModule,
+  MatDialogModule,
   MatDividerModule,
   MatGridListModule,
   MatIconModule,
@@ -37,6 +38,7 @@ import {CommonModule} from '@angular/common';
     MatIconModule,
     MatSidenavModule,
     MatTableModule,
+    MatDialogModule
   ]
 })
 export class SharedModule {

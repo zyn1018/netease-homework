@@ -1,6 +1,6 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav align="end">
-    <app-cart-sidebar></app-cart-sidebar>
+    <app-cart-sidebar (toggle)="sidenav.toggle()"></app-cart-sidebar>
   </mat-sidenav>
   <div class="site">
     <header>

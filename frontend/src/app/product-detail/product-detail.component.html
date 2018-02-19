@@ -7,12 +7,16 @@
     <mat-list-item>{{product.introduction}}</mat-list-item>
     <mat-list-item>￥{{product.price}}</mat-list-item>
     <mat-list-item>购买数量:
-      <button mat-icon-button>
+      <button mat-icon-button (click)="reduceCurrentCount()">
         <mat-icon>remove_circle_outline</mat-icon>
       </button>
-      <button mat-icon-button>
+      <span>{{currentCount}}</span>
+      <button mat-icon-button (click)="addCurrentCount()">
         <mat-icon>add_circle_outline</mat-icon>
       </button>
+    </mat-list-item>
+    <mat-list-item>
+      <button mat-raised-button color="primary" (click)="openAddToCartDialog()">添加到购物车</button>
     </mat-list-item>
   </mat-list>
 </div>
