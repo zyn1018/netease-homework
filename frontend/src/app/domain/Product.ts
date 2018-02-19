@@ -5,6 +5,7 @@ export class Product {
               public price: number,
               public introduction: string,
               public detail: string,
-              public isBought: boolean) {
+              public isBought: boolean,
+              public soldCount: number) {
   }
 }

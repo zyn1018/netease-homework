@@ -29,3 +29,9 @@ mat-card-title {
 p {
   padding-left: 5px;
 }
+
+.soldCount {
+  padding-left: 40%;
+  font-family: Verdana;
+  font-weight: bold;
+}

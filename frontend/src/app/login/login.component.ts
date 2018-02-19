@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.isLogin = true;
-    this.userService.setIsLoginSubject(true);
+    this.userService.setIsLoginSubject(this.isLogin);
     if (this.form.value.loginRole === 1) {
       this.isBuyer = true;
       this.userService.setIsBuyerSubject(this.isBuyer);

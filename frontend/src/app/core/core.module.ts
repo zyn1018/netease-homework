@@ -6,6 +6,7 @@ import {CenterComponent} from './center/center.component';
 import {RouterModule} from '@angular/router';
 import {UserService} from '../service/UserService';
 import {OrderService} from '../service/OrderService';
+import {ProductService} from '../service/ProductService';
 
 @NgModule({
   imports: [
@@ -19,7 +20,7 @@ import {OrderService} from '../service/OrderService';
     FooterComponent,
     SharedModule,
   ],
-  providers: [UserService, OrderService]
+  providers: [UserService, OrderService, ProductService]
 })
 export class CoreModule {
 }

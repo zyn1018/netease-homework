@@ -12,7 +12,8 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'products/:productId', component: ProductDetailComponent},
   {path: 'order_history', component: OrderHistoryComponent},
-  {path: 'publish', component: PublishProductComponent}
+  {path: 'publish/:productId', component: PublishProductComponent},
+  // {path: 'publish/0', component: PublishProductComponent}
 ];
 
 @NgModule({

@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Product} from '../domain/Product';
 import {products} from '../utils/mock-products';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {OrderService} from '../service/OrderService';
 import {UserService} from '../service/UserService';
 import {MatDialog, MatDialogRef} from '@angular/material';
@@ -18,19 +18,27 @@ export class ProductDetailComponent implements OnInit {
   public orderDetail;
   public currentCount = 1;
   addToCartDialogRef: MatDialogRef<AddToCartDialogComponent>;
-  // public isLogin = false;
-  // public isBuyer = false;
+  public isLogin = false;
+  public isBuyer = false;
 
   constructor(private router: Router,
               private orderService: OrderService,
               private userService: UserService,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private routeInfo: ActivatedRoute,
+              private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
     this.productId = parseInt(this.router.url.split('/')[2]);
     this.product = products.find(product => product.productId === this.productId);
     this.orderDetail = new Map<string, number[]>();
+    this.userService.getIsLoginSubject().subscribe(data => {
+      this.isLogin = data;
+    });
+    this.userService.getIsBuyerSubject().subscribe(data => {
+      this.isBuyer = data;
+    });
   }
 
 
@@ -59,5 +67,9 @@ export class ProductDetailComponent implements OnInit {
         }
       }
     );
+  }
+
+  openEditPage() {
+    this.router.navigateByUrl('/publish/' + this.productId);
   }
 }

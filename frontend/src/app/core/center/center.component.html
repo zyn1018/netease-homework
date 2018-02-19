@@ -8,7 +8,10 @@
               <mat-card-title>{{product.title}}</mat-card-title>
               <mat-card-content style="font-size: large; font-family: Impact">
                 <img class="image" mat-card-image [src]="product.imgUrl"/>
-                <p>￥{{product.price}}</p>
+                <p><span>￥{{product.price}}</span>
+                  <span *ngIf="product.isBought" class="soldCount"
+                        style="font-size: x-small">已售出{{product.soldCount}}件</span>
+                </p>
               </mat-card-content>
             </mat-card>
           </mat-grid-tile>

@@ -1,19 +1,20 @@
 import {Injectable} from '@angular/core';
-import {Subject} from 'rxjs/Subject';
 import {Observable} from 'rxjs/Observable';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class UserService {
-
   isLogin = false;
   isBuyer = false;
 
+  private isLoginSubject = new BehaviorSubject<boolean>(this.isLogin);
+  private isBuyerSubject = new BehaviorSubject<boolean>(this.isBuyer);
+
   constructor() {
+    this.isLoginSubject.next(false);
+    this.isBuyerSubject.next(false);
   }
 
-  // For communication among different components
-  private isLoginSubject = new Subject<boolean>();
-  private isBuyerSubject = new Subject<boolean>();
 
   public setIsLoginSubject(isLogin: boolean) {
     this.isLogin = isLogin;
