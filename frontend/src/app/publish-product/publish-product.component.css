@@ -12,9 +12,9 @@
   width: 300px;
 }
 
-/*.totalPrice-width {*/
-/*width: 10%;*/
-/*}*/
+.publishButton {
+  margin-left: 60px;
+}
 
 .return {
   position: absolute;

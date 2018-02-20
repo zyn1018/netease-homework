@@ -1,4 +1,3 @@
-<button class="return" (click)="goBack()" color="primary" mat-mini-fab><</button>
 <form [formGroup]="formModel" class="publishForm" (ngSubmit)="f.form.valid" #f="ngForm">
   <mat-form-field class="width" color="warn">
     <input matInput placeholder="标题" formControlName="title">
@@ -16,11 +15,13 @@
     <input matInput placeholder="图片" formControlName="imageUrl">
   </mat-form-field>
   <mat-form-field class="width" color="warn">
-      <textarea matInput placeholder="详情信息" matTextareaAutosize matAutosizeMinRows="2"
-                matAutosizeMaxRows="10" formControlName="detail"></textarea>
+    <textarea matInput placeholder="详情信息" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="10"
+              formControlName="detail"></textarea>
     <mat-error>摘要长度必须为2-1000个字符</mat-error>
   </mat-form-field>
-  <button class="publish-button" (click)="saveProduct()" [disabled]="!formModel.valid" mat-raised-button
-          color="primary">发布
-  </button>
+  <span>
+        <button class="cancelButton" (click)="goBack()" color="primary" mat-raised-button>取消</button>
+        <button class="publishButton" (click)="saveProduct()" [disabled]="!formModel.valid" mat-raised-button
+                color="primary">发布</button>
+    </span>
 </form>

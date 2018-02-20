@@ -14,8 +14,7 @@
       <div class="container">
         <div class="row">
           <div class="col-sm">
-            <span class="selectProductTitle"
-                  style="font-size: medium; font-family: Verdana;">{{productTitle}}</span>
+            <span class="selectProductTitle" style="font-size: medium; font-family: Verdana;">{{productTitle}}</span>
             <span class="productCount" style="font-family: Impact">{{(orderDetail.get(productTitle))[0]}}</span>
             <span class="selectProductPrice" style="font-family: Impact; font-size: medium"> ￥{{((orderDetail.get(productTitle))[0]*(orderDetail.get(productTitle))[1]).toFixed(2)}} </span>
           </div>

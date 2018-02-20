@@ -1,7 +1,5 @@
-import {OrderDetail} from './OrderDetail';
-
 export class Order {
-  constructor(public orderDetail: OrderDetail[],
+  constructor(public orderDetail: Map<string, number[]>,
               public totalPrice: number,
               public time: Date) {
   }

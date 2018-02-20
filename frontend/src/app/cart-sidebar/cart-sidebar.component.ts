@@ -44,6 +44,7 @@ export class CartSidebarComponent implements OnInit {
   }
 
   submitOrder() {
+    this.order = new Order(this.orderDetail, this.totalPrice, new Date());
     console.log(this.order);
   }
 
