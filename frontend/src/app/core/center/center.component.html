@@ -5,7 +5,7 @@
         <mat-grid-list cols="4" rowHeight="300px" gutterSize="1em">
           <mat-grid-tile *ngFor="let product of products">
             <mat-card (click)="goToProductDetail(product)">
-              <div *ngIf="product.isBought">
+              <div *ngIf="isLogin && isBuyer && product.isBought">
                 <div class="boughtFlag"></div>
                 <div class="boughtWord">已购买</div>
               </div>
@@ -13,7 +13,7 @@
               <mat-card-content style="font-size: large; font-family: Impact">
                 <img class="image" mat-card-image [src]="product.imgUrl"/>
                 <p><span>￥{{product.price}}</span>
-                  <span *ngIf="product.isBought" class="soldCount"
+                  <span *ngIf="isLogin && !isBuyer && product.isBought" class="soldCount"
                         style="font-size: x-small">已售出{{product.soldCount}}件</span>
                 </p>
               </mat-card-content>

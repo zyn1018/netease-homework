@@ -7,3 +7,9 @@
 
 .count {
 }
+
+.totalPaidAmount {
+  padding-left: 80%;
+  margin-top: 20px;
+  font-family: "Fira Code";
+}

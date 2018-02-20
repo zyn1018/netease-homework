@@ -9,11 +9,15 @@ import {products} from '../utils/mock-products';
 export class OrderHistoryComponent implements OnInit {
   displayedColumns = ['image', 'title', 'time', 'count', 'totalPrice'];
   dataSource = MOCK_ORDER_HISTORY;
+  totalPaidAmount = 0;
 
   constructor() {
   }
 
   ngOnInit() {
+    for (let i = 0; i < MOCK_ORDER_HISTORY.length; i++) {
+      this.totalPaidAmount += MOCK_ORDER_HISTORY[i].totalPrice;
+    }
   }
 }
 
