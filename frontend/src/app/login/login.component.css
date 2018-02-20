@@ -28,3 +28,10 @@ form {
 mat-radio-button {
   font-weight: bold;
 }
+
+.BuyerOption {
+}
+
+.SellerOption {
+  padding-left: 50px;
+}
