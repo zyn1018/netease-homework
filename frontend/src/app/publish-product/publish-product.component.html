@@ -1,11 +1,14 @@
 <form [formGroup]="formModel" class="publishForm" (ngSubmit)="f.form.valid" #f="ngForm">
+  <h2 *ngIf="!isPublish" style="font-family: Verdana">内容编辑</h2>
+  <h2 *ngIf="isPublish" style="font-family: Verdana">内容发布</h2>
   <mat-form-field class="width" color="warn">
     <input matInput placeholder="标题" formControlName="title">
     <mat-error>标题长度必须为2-80个字符</mat-error>
   </mat-form-field>
-  <mat-form-field class="width" color="warn">
+  <mat-form-field class="price" color="warn">
     <input matInput placeholder="价格" formControlName="price">
     <mat-error>价格必须为不是0开头的数字</mat-error>
+    <span class="yuan">元</span>
   </mat-form-field>
   <mat-form-field class="width" color="warn">
     <input matInput placeholder="摘要" formControlName="introduction">
@@ -15,13 +18,17 @@
     <input matInput placeholder="图片" formControlName="imageUrl">
   </mat-form-field>
   <mat-form-field class="width" color="warn">
-    <textarea matInput placeholder="详情信息" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="10"
+    <textarea matInput placeholder="详情信息" matTextareaAutosize matAutosizeMinRows="1" matAutosizeMaxRows="10"
               formControlName="detail"></textarea>
     <mat-error>摘要长度必须为2-1000个字符</mat-error>
   </mat-form-field>
   <span>
         <button class="cancelButton" (click)="goBack()" color="primary" mat-raised-button>取消</button>
-        <button class="publishButton" (click)="saveProduct()" [disabled]="!formModel.valid" mat-raised-button
+        <button class="publishButton" *ngIf="isPublish" (click)="saveProduct()" [disabled]="!formModel.valid"
+                mat-raised-button
                 color="primary">发布</button>
+        <button class="publishButton" *ngIf="!isPublish" (click)="saveProduct()" [disabled]="!formModel.valid"
+                mat-raised-button
+                color="primary">保存</button>
     </span>
 </form>

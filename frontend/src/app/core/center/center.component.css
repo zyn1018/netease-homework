@@ -54,3 +54,10 @@ p {
   font-size: 1em;
   color: white;
 }
+
+.deleteButton {
+  min-width: 20px;
+  position: absolute;
+  left: 60%;
+  bottom: 6%;
+}

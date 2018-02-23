@@ -15,7 +15,10 @@
         <div class="row">
           <div class="col-sm">
             <span class="selectProductTitle" style="font-size: medium; font-family: Verdana;">{{productTitle}}</span>
+            <i role="button" class="material-icons minusCircle" (click)="reduceProductCount(productTitle)">remove_circle_outline</i>
             <span class="productCount" style="font-family: Impact">{{(orderDetail.get(productTitle))[0]}}</span>
+            <i role="button" class="material-icons addCircle"
+               (click)="addProductCount(productTitle)">add_circle_outline</i>
             <span class="selectProductPrice" style="font-family: Impact; font-size: medium"> ￥{{((orderDetail.get(productTitle))[0]*(orderDetail.get(productTitle))[1]).toFixed(2)}} </span>
           </div>
         </div>

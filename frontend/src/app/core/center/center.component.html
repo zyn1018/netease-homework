@@ -13,11 +13,13 @@
               <mat-card-content style="font-size: large; font-family: Impact">
                 <img class="image" mat-card-image [src]="product.imgUrl"/>
                 <p><span>￥{{product.price}}</span>
-                  <span *ngIf="isLogin && !isBuyer && product.isBought" class="soldCount"
-                        style="font-size: x-small">已售出{{product.soldCount}}件</span>
+                  <span *ngIf="isLogin && !isBuyer && product.isBought" class="soldCount" style="font-size: x-small">已售出{{product.soldCount}}件</span>
                 </p>
               </mat-card-content>
             </mat-card>
+            <button *ngIf="isLogin && !isBuyer && !product.isBought" mat-raised-button class="deleteButton"
+                    color="primary" (click)="openDeleteProductDialog(product)">删除
+            </button>
           </mat-grid-tile>
         </mat-grid-list>
       </div>

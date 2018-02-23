@@ -21,3 +21,12 @@
   top: 50%;
   left: 10px;
 }
+
+.price {
+  width: 60px;
+  margin-right: 240px;
+}
+
+.yuan {
+  position: absolute;
+}

@@ -15,6 +15,7 @@ export class PublishProductComponent implements OnInit {
   formModel: FormGroup;
   model: any = {};
   productEdited: Product;
+  isPublish: boolean;
 
   priceValidator(price: FormControl): any {
     const value = (price.value || '') + '';
@@ -32,8 +33,10 @@ export class PublishProductComponent implements OnInit {
   ngOnInit() {
     const productId = parseInt(this.router.url.split('/')[2]);
     if (productId !== 0) {
+      this.isPublish = false;
       this.productEdited = products.find(product => product.productId === productId);
     } else if (productId === 0) {
+      this.isPublish = true;
       this.productEdited = new Product(0, '', '', null, '', '', false, 0);
     }
     const fb = new FormBuilder();
@@ -62,6 +65,6 @@ export class PublishProductComponent implements OnInit {
     this.productEdited.detail = this.formModel.get('detail').value;
     this.productEdited.price = this.formModel.get('price').value;
     this.productService.updateProductList(this.productEdited);
-    this.router.navigateByUrl('/home');
+    this.location.back();
   }
 }

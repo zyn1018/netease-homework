@@ -51,4 +51,22 @@ export class CartSidebarComponent implements OnInit {
   toggleSidebar() {
     this.toggle.emit();
   }
+
+  addProductCount(productTitle: string) {
+    const value = this.orderDetail.get(productTitle);
+    this.orderDetail.set(productTitle, [value[0] + 1, value[1]]);
+    this.checkShowParam();
+    this.calTotalPrice();
+  }
+
+  reduceProductCount(productTitle: string) {
+    const value = this.orderDetail.get(productTitle);
+    if (value[0] === 1) {
+      this.orderDetail.delete(productTitle);
+    } else {
+      this.orderDetail.set(productTitle, [value[0] - 1, value[1]]);
+    }
+    this.checkShowParam();
+    this.calTotalPrice();
+  }
 }

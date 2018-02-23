@@ -11,6 +11,7 @@ import {CartSidebarComponent} from './cart-sidebar/cart-sidebar.component';
 import {OrderHistoryComponent} from './order-history/order-history.component';
 import {PublishProductComponent} from './publish-product/publish-product.component';
 import {AddToCartDialogComponent} from './add-to-cart-dialog/add-to-cart-dialog.component';
+import {DeleteProductDialogComponent} from './delete-product-dialog/delete-product-dialog.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {AddToCartDialogComponent} from './add-to-cart-dialog/add-to-cart-dialog.
     CartSidebarComponent,
     OrderHistoryComponent,
     PublishProductComponent,
-    AddToCartDialogComponent
+    AddToCartDialogComponent,
+    DeleteProductDialogComponent
   ],
   imports: [
     CoreModule,
@@ -29,7 +31,7 @@ import {AddToCartDialogComponent} from './add-to-cart-dialog/add-to-cart-dialog.
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [AddToCartDialogComponent]
+  entryComponents: [AddToCartDialogComponent, DeleteProductDialogComponent]
 })
 export class AppModule {
 }
