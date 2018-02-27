@@ -10,11 +10,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 /**
  * @author yinan
  */
+
+@Document
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Document
 public class Seller {
     @Id
     private Integer sellerId;
