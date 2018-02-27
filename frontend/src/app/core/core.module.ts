@@ -7,6 +7,7 @@ import {RouterModule} from '@angular/router';
 import {UserService} from '../service/UserService';
 import {OrderService} from '../service/OrderService';
 import {ProductService} from '../service/ProductService';
+import {AuthenticateService} from "../service/AuthenticateService";
 
 @NgModule({
   imports: [
@@ -20,7 +21,7 @@ import {ProductService} from '../service/ProductService';
     FooterComponent,
     SharedModule,
   ],
-  providers: [UserService, OrderService, ProductService]
+  providers: [UserService, OrderService, ProductService, AuthenticateService]
 })
 export class CoreModule {
 }

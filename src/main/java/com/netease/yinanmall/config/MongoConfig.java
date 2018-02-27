@@ -20,9 +20,12 @@ public class MongoConfig extends AbstractMongoConfiguration {
     @Value("${spring.data.mongodb.uri}")
     private String mongoUri;
 
+    @Value("${spring.data.mongodb.database}")
+    private String databaseName;
+
     @Override
     protected String getDatabaseName() {
-        return "netease_mall";
+        return databaseName;
     }
 
     @Override

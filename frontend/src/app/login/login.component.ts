@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../service/UserService';
 import {ActivatedRoute, Router} from '@angular/router';
+import {AuthenticateService} from "../service/AuthenticateService";
 
 @Component({
   selector: 'app-login',
@@ -9,9 +10,6 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  private isLogin = false;
-  private isBuyer = false;
-  returnUrl: string;
 
   form: FormGroup;
   model: any = {};
@@ -19,28 +17,43 @@ export class LoginComponent implements OnInit {
 
   constructor(private userService: UserService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private authenticateService: AuthenticateService) {
   }
 
   ngOnInit() {
     this.form = this.fb.group({
-      username: [''],
-      password: [''],
+      username: ['', Validators.required],
+      password: ['', Validators.required],
       loginRole: ['', Validators.required]
     });
   }
 
   login() {
-    this.isLogin = true;
-    this.userService.setIsLoginSubject(this.isLogin);
     if (this.form.value.loginRole === 1) {
-      this.isBuyer = true;
-      this.userService.setIsBuyerSubject(this.isBuyer);
+      this.authenticateService.loginBuyer(this.model.username, this.model.password).subscribe(
+        data => {
+          localStorage.setItem('currentBuyer', JSON.stringify(data));
+          this.userService.setIsLoginSubject(true);
+          this.userService.setIsBuyerSubject(true);
+          this.router.navigateByUrl('/home');
+        },
+        err => {
+          alert('输入的买家账号密码有误, 请核对后再输入');
+        }
+      );
     } else if (this.form.value.loginRole === 2) {
-      this.isBuyer = false;
-      this.userService.setIsBuyerSubject(this.isBuyer);
+      this.authenticateService.loginSeller(this.model.username, this.model.password).subscribe(
+        data => {
+          localStorage.setItem('currentSeller', JSON.stringify(data));
+          this.userService.setIsLoginSubject(true);
+          this.userService.setIsBuyerSubject(false);
+          this.router.navigateByUrl('/home');
+        },
+        err => {
+          alert('输入的卖家账号密码有误, 请核对后再输入');
+        }
+      )
     }
-
-    this.router.navigateByUrl('/home');
   }
 }

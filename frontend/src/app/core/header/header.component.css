@@ -11,3 +11,8 @@
   font-size: 20px;
   font-family: Impact;
 }
+
+.logOutButton {
+  min-width: 30px;
+  font-size: small;
+}

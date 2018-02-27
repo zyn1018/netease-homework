@@ -1,4 +1,4 @@
-import {DeleteProductDialogComponent} from './../../delete-product-dialog/delete-product-dialog.component';
+import {DeleteProductDialogComponent} from '../../delete-product-dialog/delete-product-dialog.component';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Product} from '../../domain/Product';

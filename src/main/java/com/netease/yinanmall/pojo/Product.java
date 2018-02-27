@@ -7,8 +7,6 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.io.File;
-
 /**
  * @author yinan
  */
@@ -17,9 +15,9 @@ import java.io.File;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Goods {
+public class Product {
     @Id
-    private Integer goodsId;
+    private Integer productId;
 
     private String title;
 
@@ -27,10 +25,12 @@ public class Goods {
 
     private Double price;
 
-    private File imgFile;
-
     private String introduction;
 
     private String detail;
+
+    private Boolean bought;
+
+    private Integer soldNumber;
 
 }

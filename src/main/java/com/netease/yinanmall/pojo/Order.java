@@ -20,6 +20,6 @@ public class Order {
 
     private Double totalPrice;
 
-    private Map<String, Integer> orderDetail;
+    private Map<String, Integer[]> orderDetail;
 
 }

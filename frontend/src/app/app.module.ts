@@ -12,6 +12,7 @@ import {OrderHistoryComponent} from './order-history/order-history.component';
 import {PublishProductComponent} from './publish-product/publish-product.component';
 import {AddToCartDialogComponent} from './add-to-cart-dialog/add-to-cart-dialog.component';
 import {DeleteProductDialogComponent} from './delete-product-dialog/delete-product-dialog.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {DeleteProductDialogComponent} from './delete-product-dialog/delete-produ
   imports: [
     CoreModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],
