@@ -1,11 +1,11 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Product} from '../domain/Product';
-import {products} from '../utils/mock-products';
 import {ActivatedRoute, Router} from '@angular/router';
 import {OrderService} from '../service/OrderService';
 import {UserService} from '../service/UserService';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {AddToCartDialogComponent} from '../add-to-cart-dialog/add-to-cart-dialog.component';
+import {ProductService} from "../service/ProductService";
 
 @Component({
   selector: 'app-product-detail',
@@ -15,6 +15,7 @@ import {AddToCartDialogComponent} from '../add-to-cart-dialog/add-to-cart-dialog
 export class ProductDetailComponent implements OnInit {
   public productId: number;
   public product: Product;
+  public imageUrl: string;
   public orderDetail;
   public currentCount = 1;
   addToCartDialogRef: MatDialogRef<AddToCartDialogComponent>;
@@ -25,13 +26,16 @@ export class ProductDetailComponent implements OnInit {
               private orderService: OrderService,
               private userService: UserService,
               private dialog: MatDialog,
+              private productService: ProductService,
               private routeInfo: ActivatedRoute,
               private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
     this.productId = parseInt(this.router.url.split('/')[2]);
-    this.product = products.find(product => product.productId === this.productId);
+    this.productService.getProductById(this.productId).subscribe(
+      data => this.product = data
+    );
     this.orderDetail = new Map<string, number[]>();
     this.userService.getIsLoginSubject().subscribe(data => {
       this.isLogin = data;

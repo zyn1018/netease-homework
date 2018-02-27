@@ -8,6 +8,9 @@ export class AuthenticateService {
 
   private loginSellerUrl = '/api/login_seller';
 
+  private logoutBuyerUrl = '/api/logout_buyer';
+  private logoutSellerUrl = '/api/logout_seller';
+
   private httpOptions = {
     headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -35,9 +38,12 @@ export class AuthenticateService {
   }
 
   logOut() {
+
     if (localStorage.getItem('currentBuyer') != null) {
+      this.http.post(this.logoutBuyerUrl, this.httpOptions);
       localStorage.removeItem('currentBuyer');
     } else if (localStorage.getItem('currentSeller') != null) {
+      this.http.post(this.logoutSellerUrl, this.httpOptions);
       localStorage.removeItem('currentSeller');
     }
   }

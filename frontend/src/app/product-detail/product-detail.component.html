@@ -1,7 +1,7 @@
-<div class="imageDiv">
+<div class="imageDiv" *ngIf="product">
   <img class="image" [src]="product.imgUrl"/>
 </div>
-<div class="wordsDiv">
+<div class="wordsDiv" *ngIf="product">
   <mat-list>
     <mat-list-item>{{product.title}}</mat-list-item>
     <mat-list-item>{{product.introduction}}</mat-list-item>
@@ -24,7 +24,4 @@
 </div>
 <p class="detail">详细信息</p>
 <mat-divider></mat-divider>
-<p class="detailWords">{{product.detail}}</p>
-<div>
-
-</div>
+<p class="detailWords" *ngIf="product">{{product.detail}}</p>

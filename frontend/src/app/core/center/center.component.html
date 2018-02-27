@@ -5,7 +5,7 @@
         <mat-grid-list cols="4" rowHeight="300px" gutterSize="1em">
           <mat-grid-tile *ngFor="let product of products">
             <mat-card (click)="goToProductDetail(product)">
-              <div *ngIf="isLogin && isBuyer && product.isBought">
+              <div *ngIf="isLogin && isBuyer && product.bought">
                 <div class="boughtFlag"></div>
                 <div class="boughtWord">已购买</div>
               </div>
@@ -13,11 +13,11 @@
               <mat-card-content style="font-size: large; font-family: Impact">
                 <img class="image" mat-card-image [src]="product.imgUrl"/>
                 <p><span>￥{{product.price}}</span>
-                  <span *ngIf="isLogin && !isBuyer && product.isBought" class="soldCount" style="font-size: x-small">已售出{{product.soldCount}}件</span>
+                  <span *ngIf="isLogin && !isBuyer && product.bought" class="soldCount" style="font-size: x-small">已售出{{product.soldNumber}}件</span>
                 </p>
               </mat-card-content>
             </mat-card>
-            <button *ngIf="isLogin && !isBuyer && !product.isBought" mat-raised-button class="deleteButton"
+            <button *ngIf="isLogin && !isBuyer && !product.bought" mat-raised-button class="deleteButton"
                     color="primary" (click)="openDeleteProductDialog(product)">删除
             </button>
           </mat-grid-tile>

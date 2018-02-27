@@ -27,8 +27,11 @@ export class CenterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.products = products;
-    this.notBoughtProducts = products.filter(product => product.isBought === false);
+    this.productService.getProductList().subscribe(data => {
+      this.products = data;
+    });
+
+    this.notBoughtProducts = products.filter(product => product.bought === false);
     this.userService.getIsLoginSubject().subscribe(data => {
       this.isLogin = data;
     });
@@ -41,15 +44,14 @@ export class CenterComponent implements OnInit {
     this.router.navigateByUrl('/products/' + product.productId);
   }
 
-  delete(product: Product) {
-    this.productService.deleteProduct(product);
-  }
-
   openDeleteProductDialog(product: Product) {
     this.deleteProductDialogRef = this.dialog.open(DeleteProductDialogComponent);
     this.deleteProductDialogRef.afterClosed().subscribe(result => {
         if (true === result) {
-          this.productService.deleteProduct(product);
+          this.productService.deleteProduct(product).subscribe(data =>
+            this.productService.getProductList().subscribe(data => {
+              this.products = data;
+            }));
         }
       }
     );

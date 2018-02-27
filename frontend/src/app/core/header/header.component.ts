@@ -2,6 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {UserService} from "../../service/UserService";
 import {Router} from "@angular/router";
 import {AuthenticateService} from "../../service/AuthenticateService";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-header',
@@ -16,7 +17,8 @@ export class HeaderComponent implements OnInit {
 
   constructor(private userService: UserService,
               private router: Router,
-              private authenticateService: AuthenticateService) {
+              private authenticateService: AuthenticateService,
+              private http: HttpClient) {
   }
 
   ngOnInit() {
@@ -36,14 +38,6 @@ export class HeaderComponent implements OnInit {
       this.isBuyer = false;
       this.userService.setIsBuyerSubject(this.isBuyer);
     }
-
-    // if (this.isLogin && this.isBuyer) {
-    //   this.nickname = JSON.parse(localStorage.getItem('currentBuyer')).username;
-    // } else if (this.isLogin && !this.isBuyer) {
-    //   this.nickname = JSON.parse(localStorage.getItem('currentSeller')).username;
-    // } else {
-    //   this.nickname = '';
-    // }
 
     this.userService.getIsLoginSubject().subscribe(data => {
       this.isLogin = data;
@@ -66,6 +60,7 @@ export class HeaderComponent implements OnInit {
     this.userService.setIsLoginSubject(this.isLogin);
     this.isBuyer = false;
     this.userService.setIsBuyerSubject(this.isBuyer);
+
     this.router.navigateByUrl('/login');
   }
 
