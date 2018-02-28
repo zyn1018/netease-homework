@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Location} from '@angular/common';
 import {ActivatedRoute, Router} from '@angular/router';
-import {products} from '../utils/mock-products';
 import {Product} from '../domain/Product';
 import {ProductService} from '../service/ProductService';
 
@@ -31,28 +30,32 @@ export class PublishProductComponent implements OnInit {
   }
 
   ngOnInit() {
-    const productId = parseInt(this.router.url.split('/')[2]);
-    if (productId !== 0) {
+    const productId = this.router.url.split('/')[2];
+    if (productId !== '0') {
       this.isPublish = false;
-      this.productEdited = products.find(product => product.productId === productId);
-    } else if (productId === 0) {
+      this.productService.getProductById(productId).subscribe(data => {
+        this.productEdited = data;
+        const fb = new FormBuilder();
+        this.formModel = fb.group(
+          {
+            title: [this.productEdited.title, [Validators.required, Validators.maxLength(80), Validators.minLength(2)]],
+            introduction: [this.productEdited.introduction,
+              [Validators.required,
+                Validators.maxLength(140),
+                Validators.minLength(2)]],
+            imageUrl: [this.productEdited.imgUrl],
+            detail: [this.productEdited.detail, [Validators.required, Validators.maxLength(1000), Validators.minLength(2)]],
+            price: [this.productEdited.price, [Validators.required, this.priceValidator]]
+          }
+        );
+      })
+    } else if (productId === '0') {
       this.isPublish = true;
-      this.productEdited = new Product(0, '', '', null, '', '', false, 0);
+      this.productEdited = new Product('0', '', '', null, '', '', false, 0);
     }
-    const fb = new FormBuilder();
-    this.formModel = fb.group(
-      {
-        title: [this.productEdited.title, [Validators.required, Validators.maxLength(80), Validators.minLength(2)]],
-        introduction: [this.productEdited.introduction,
-          [Validators.required,
-            Validators.maxLength(140),
-            Validators.minLength(2)]],
-        imageUrl: [this.productEdited.imgUrl],
-        detail: [this.productEdited.detail, [Validators.required, Validators.maxLength(1000), Validators.minLength(2)]],
-        price: [this.productEdited.price, [Validators.required, this.priceValidator]]
-      }
-    );
+
   }
+
 
   goBack() {
     this.location.back();
@@ -64,7 +67,19 @@ export class PublishProductComponent implements OnInit {
     this.productEdited.imgUrl = this.formModel.get('imageUrl').value;
     this.productEdited.detail = this.formModel.get('detail').value;
     this.productEdited.price = this.formModel.get('price').value;
-    this.productService.updateProductList(this.productEdited);
-    this.location.back();
+    if (this.productEdited.productId === '0') {
+      this.productService.updateProductList(this.productEdited).subscribe(
+        response => {
+          alert('发布新内容成功!');
+          this.location.back();
+        }
+      );
+    } else {
+      this.productService.updateProductList(this.productEdited).subscribe(
+        response => {
+          alert('更新内容信息成功!');
+          this.location.back();
+        });
+    }
   }
 }

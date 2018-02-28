@@ -1,25 +1,25 @@
-<form [formGroup]="formModel" class="publishForm" (ngSubmit)="f.form.valid" #f="ngForm">
+<form *ngIf="formModel" [formGroup]="formModel" class="publishForm" (ngSubmit)="f.form.valid" #f="ngForm">
   <h2 *ngIf="!isPublish" style="font-family: Verdana">内容编辑</h2>
   <h2 *ngIf="isPublish" style="font-family: Verdana">内容发布</h2>
   <mat-form-field class="width" color="warn">
-    <input matInput placeholder="标题" formControlName="title">
+    <input matInput placeholder="标题" formControlName="title" *ngIf="productEdited">
     <mat-error>标题长度必须为2-80个字符</mat-error>
   </mat-form-field>
   <mat-form-field class="price" color="warn">
-    <input matInput placeholder="价格" formControlName="price">
+    <input matInput placeholder="价格" formControlName="price" *ngIf="productEdited">
     <mat-error>价格必须为不是0开头的数字</mat-error>
     <span class="yuan">元</span>
   </mat-form-field>
   <mat-form-field class="width" color="warn">
-    <input matInput placeholder="摘要" formControlName="introduction">
+    <input matInput placeholder="摘要" formControlName="introduction" *ngIf="productEdited">
     <mat-error>摘要长度必须为2-140个字符</mat-error>
   </mat-form-field>
   <mat-form-field class="width" color="warn">
-    <input matInput placeholder="图片" formControlName="imageUrl">
+    <input matInput placeholder="图片" formControlName="imageUrl" *ngIf="productEdited">
   </mat-form-field>
   <mat-form-field class="width" color="warn">
     <textarea matInput placeholder="详情信息" matTextareaAutosize matAutosizeMinRows="1" matAutosizeMaxRows="10"
-              formControlName="detail"></textarea>
+              formControlName="detail" *ngIf="productEdited"></textarea>
     <mat-error>摘要长度必须为2-1000个字符</mat-error>
   </mat-form-field>
   <span>

@@ -2,7 +2,7 @@ import {Product} from '../domain/Product';
 
 export const products: Product[] = [
   {
-    productId: 1,
+    productId: '1',
     title: 'DBMS',
     price: 15.0,
     detail: 'Course for database management system',
@@ -12,7 +12,7 @@ export const products: Product[] = [
     soldNumber: 1
   },
   {
-    productId: 2,
+    productId: '2',
     title: 'PLP',
     price: 20.0,
     detail: 'Course for programming language principles',
@@ -22,7 +22,7 @@ export const products: Product[] = [
     soldNumber: 3
   },
   {
-    productId: 3,
+    productId: '3',
     title: 'AOA',
     price: 30.5,
     detail: 'Course for analysis of algorithms',
@@ -32,7 +32,7 @@ export const products: Product[] = [
     soldNumber: 2
   },
   {
-    productId: 4,
+    productId: '4',
     title: 'CG',
     price: 10.5,
     detail: 'Course for computer graphics',
@@ -42,7 +42,7 @@ export const products: Product[] = [
     soldNumber: 0
   },
   {
-    productId: 5,
+    productId: '5',
     title: 'CN',
     price: 17.5,
     detail: 'Course for computer networks',
@@ -52,7 +52,7 @@ export const products: Product[] = [
     soldNumber: 0
   },
   {
-    productId: 6,
+    productId: '6',
     title: 'CNSecurity',
     price: 9.5,
     detail: 'Course for computer network security',
@@ -62,7 +62,7 @@ export const products: Product[] = [
     soldNumber: 0
   },
   {
-    productId: 7,
+    productId: '7',
     title: 'DOS',
     price: 14.5,
     detail: 'Course for distributed operating system',
@@ -72,7 +72,7 @@ export const products: Product[] = [
     soldNumber: 5
   },
   {
-    productId: 8,
+    productId: '8',
     title: 'ADS',
     price: 14.5,
     detail: 'Course for advanced data structures',
@@ -82,7 +82,7 @@ export const products: Product[] = [
     soldNumber: 0
   },
   {
-    productId: 9,
+    productId: '9',
     title: 'SE',
     price: 34.5,
     detail: 'Course for software engineering',
@@ -92,7 +92,7 @@ export const products: Product[] = [
     soldNumber: 0
   },
   {
-    productId: 10,
+    productId: '10',
     title: 'DMS',
     price: 34.5,
     detail: 'Course for distributed multimedia systems',

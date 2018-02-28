@@ -5,7 +5,6 @@ import com.netease.yinanmall.db.BuyerRepository;
 import com.netease.yinanmall.db.ProductRepository;
 import com.netease.yinanmall.db.SellerRepository;
 import com.netease.yinanmall.pojo.Buyer;
-import com.netease.yinanmall.pojo.Product;
 import com.netease.yinanmall.pojo.Seller;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,17 +41,4 @@ public class YinanmallApplicationTests {
         Seller seller = new Seller(2, "asdasd", "999999");
         sellerRepository.save(seller);
     }
-
-    @Test
-    public void addProduct() {
-        Product product = new Product();
-        product.setProductId(10);
-        product.setTitle("DMS");
-        product.setPrice(34.5);
-        product.setImgUrl("http://www.youth.gov.hk/html/www/en/images/career-and-study/upload-images/it/multimedia-front.jpg");
-        product.setIntroduction("HUE HUE HUE");
-        product.setDetail("Course for distributed multimedia systems");
-        productRepository.save(product);
-    }
-
 }

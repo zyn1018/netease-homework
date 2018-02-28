@@ -1,11 +1,12 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Product} from '../domain/Product';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {OrderService} from '../service/OrderService';
 import {UserService} from '../service/UserService';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {AddToCartDialogComponent} from '../add-to-cart-dialog/add-to-cart-dialog.component';
 import {ProductService} from "../service/ProductService";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-product-detail',
@@ -13,7 +14,7 @@ import {ProductService} from "../service/ProductService";
   styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent implements OnInit {
-  public productId: number;
+  public productId: string;
   public product: Product;
   public imageUrl: string;
   public orderDetail;
@@ -27,12 +28,11 @@ export class ProductDetailComponent implements OnInit {
               private userService: UserService,
               private dialog: MatDialog,
               private productService: ProductService,
-              private routeInfo: ActivatedRoute,
-              private cdr: ChangeDetectorRef) {
+              private http: HttpClient) {
   }
 
   ngOnInit() {
-    this.productId = parseInt(this.router.url.split('/')[2]);
+    this.productId = this.router.url.split('/')[2];
     this.productService.getProductById(this.productId).subscribe(
       data => this.product = data
     );

@@ -1,4 +1,3 @@
-import {products} from './../utils/mock-products';
 import {Injectable} from '@angular/core';
 import {Product} from '../domain/Product';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
@@ -12,6 +11,12 @@ export class ProductService {
   private getProductByIdUrl = '/api/product/';
 
   private deleteProductByIdUrl = '/api/delete_product/';
+
+  private addProductUrl = '/api/add_product';
+
+  private getUnboughtProductListUrl = '/api/unbought_products';
+
+  private updateProductUrl = '/api/update_product';
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -27,18 +32,20 @@ export class ProductService {
     return this.http.get(this.getAllProductsUrl, this.httpOptions);
   }
 
+  getUnboughtProductList(): Observable<any> {
+    return this.http.get(this.getUnboughtProductListUrl, this.httpOptions);
+  }
+
   updateProductList(product: Product) {
-    if (product.productId === 0) {
-      product.productId = products.length + 1;
-      products.push(product);
-      products.sort((p1, p2) => p1.productId - p2.productId);
+    if (product.productId === "0") {
+      return this.http.post(this.addProductUrl, product, this.httpOptions);
     } else {
-      products.splice(product.productId - 1, 1, product);
+      return this.http.post(this.updateProductUrl, product, this.httpOptions);
     }
   }
 
 
-  getProductById(productId: number): Observable<any> {
+  getProductById(productId: string): Observable<any> {
     return this.http.get(this.getProductByIdUrl + productId, this.httpOptions);
   }
 

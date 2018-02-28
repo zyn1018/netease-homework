@@ -9,7 +9,7 @@
                 <div class="boughtFlag"></div>
                 <div class="boughtWord">已购买</div>
               </div>
-              <mat-card-title>{{product.title}}</mat-card-title>
+              <mat-card-title style="font-size: large;">{{product.title}}</mat-card-title>
               <mat-card-content style="font-size: large; font-family: Impact">
                 <img class="image" mat-card-image [src]="product.imgUrl"/>
                 <p><span>￥{{product.price}}</span>
@@ -25,11 +25,11 @@
       </div>
     </mat-tab>
     <mat-tab *ngIf="isLogin && isBuyer" label="未购买的内容">
-      <div class="notBoughtproducts">
+      <div class="productList">
         <mat-grid-list cols="4" rowHeight="300px" gutterSize="1em">
           <mat-grid-tile *ngFor="let product of notBoughtProducts">
             <mat-card (click)="goToProductDetail(product)">
-              <mat-card-title>{{product.title}}</mat-card-title>
+              <mat-card-title style="font-size: large;">{{product.title}}</mat-card-title>
               <mat-card-content style="font-size: large; font-family: Impact">
                 <img class="image" mat-card-image [src]="product.imgUrl"/>
                 <p>￥{{product.price}}</p>

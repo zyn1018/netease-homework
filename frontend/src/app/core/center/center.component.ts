@@ -2,7 +2,6 @@ import {DeleteProductDialogComponent} from '../../delete-product-dialog/delete-p
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Product} from '../../domain/Product';
-import {products} from '../../utils/mock-products';
 import {Router} from '@angular/router';
 import {UserService} from '../../service/UserService';
 import {ProductService} from '../../service/ProductService';
@@ -31,7 +30,9 @@ export class CenterComponent implements OnInit {
       this.products = data;
     });
 
-    this.notBoughtProducts = products.filter(product => product.bought === false);
+    this.productService.getUnboughtProductList().subscribe(data => {
+      this.notBoughtProducts = data;
+    });
     this.userService.getIsLoginSubject().subscribe(data => {
       this.isLogin = data;
     });

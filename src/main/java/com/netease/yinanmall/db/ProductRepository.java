@@ -3,8 +3,13 @@ package com.netease.yinanmall.db;
 import com.netease.yinanmall.pojo.Product;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface ProductRepository extends MongoRepository<Product, Integer> {
-    Product findProductByProductId(Integer productId);
+import java.util.List;
 
-    void deleteProductByProductId(Integer productId);
+public interface ProductRepository extends MongoRepository<Product, Integer> {
+
+    Product findProductByProductId(String productId);
+
+    void deleteProductByProductId(String productId);
+
+    List<Product> findProductsByBoughtFalse();
 }

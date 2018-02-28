@@ -17,7 +17,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 public class Product {
     @Id
-    private Integer productId;
+    private String productId;
 
     private String title;
 
