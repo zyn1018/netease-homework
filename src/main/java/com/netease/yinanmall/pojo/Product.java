@@ -32,5 +32,4 @@ public class Product {
     private Boolean bought;
 
     private Integer soldNumber;
-
 }

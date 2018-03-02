@@ -15,14 +15,16 @@ import {CartItem} from "../domain/CartItem";
   styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent implements OnInit {
-  public productId: string;
-  public product: Product;
-  public imageUrl: string;
-  public orderDetail;
-  public currentCount = 1;
+  private productId: string;
+  private product: Product;
+  private imageUrl: string;
+  private orderDetail;
+  private currentCount = 1;
   addToCartDialogRef: MatDialogRef<AddToCartDialogComponent>;
-  public isLogin = false;
-  public isBuyer = false;
+  private isLogin = false;
+  private isBuyer = false;
+  private soldPrice = 0;
+
 
   constructor(private router: Router,
               private orderService: OrderService,
@@ -35,9 +37,14 @@ export class ProductDetailComponent implements OnInit {
   ngOnInit() {
     this.productId = this.router.url.split('/')[2];
     this.productService.getProductById(this.productId).subscribe(
-      data => this.product = data
-    );
-    // this.orderDetail = new Map<string, number[]>();
+      data => {
+        this.product = data;
+        if (this.product.bought) {
+          this.orderService.getOrderItemByTitle(this.product.title).subscribe(
+            data => this.soldPrice = data.perPrice
+          );
+        }
+      });
     this.userService.getIsLoginSubject().subscribe(data => {
       this.isLogin = data;
     });
@@ -60,7 +67,6 @@ export class ProductDetailComponent implements OnInit {
           this.cartService.getAllCartItem().subscribe(data => {
             this.cartService.setCartSubject(data);
           });
-          alert("添加该内容至购物车成功!");
         });
       } else if (data != null) {
         cartItem.count += data.count;
@@ -69,7 +75,6 @@ export class ProductDetailComponent implements OnInit {
           this.cartService.getAllCartItem().subscribe(data => {
             this.cartService.setCartSubject(data);
           });
-          alert("添加该内容至购物车成功!");
         });
       }
     });

@@ -91,8 +91,7 @@ public class ProductController {
 
     @RequestMapping(value = "/update_product", method = RequestMethod.POST)
     public ResponseEntity<?> updateExistedProduct(@RequestBody Product product, HttpSession session) {
-        Seller seller = (Seller) session.getAttribute(Const.CURRENT_SELLER);
-        if (seller == null) {
+        if (session.getAttribute(Const.CURRENT_BUYER) == null && session.getAttribute(Const.CURRENT_SELLER) == null) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         } else {
             if (product != null) {
@@ -101,6 +100,20 @@ public class ProductController {
             } else {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
+        }
+    }
+
+    @RequestMapping(value = "/get_product_by_title/{title}", method = RequestMethod.GET)
+    public ResponseEntity<?> getProductByTitle(@PathVariable String title, HttpSession session) {
+        if (session.getAttribute(Const.CURRENT_BUYER) != null || session.getAttribute(Const.CURRENT_SELLER) != null) {
+            if (title != null && title.length() != 0) {
+                Product product = this.productRepository.findProductByTitle(title);
+                return new ResponseEntity<>(product, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+        } else {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
     }
 }

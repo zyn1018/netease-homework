@@ -3,6 +3,7 @@ import {OrderService} from '../service/OrderService';
 import {OrderItem} from '../domain/OrderItem';
 import {CartService} from "../service/CartService";
 import {CartItem} from "../domain/CartItem";
+import {ProductService} from "../service/ProductService";
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -17,6 +18,7 @@ export class CartSidebarComponent implements OnInit {
   @Output() toggle = new EventEmitter<void>();
 
   constructor(private orderService: OrderService,
+              private productService: ProductService,
               private cartService: CartService,
               private cdr: ChangeDetectorRef) {
   }
@@ -54,7 +56,15 @@ export class CartSidebarComponent implements OnInit {
         orderItem.count = item.count;
         orderItem.totalPrice = item.totalPrice;
         orderItem.date = new Date();
+        orderItem.perPrice = item.perPrice;
         this.orderService.saveOrder(orderItem).subscribe(data => {
+        });
+        this.productService.getProductByTitle(orderItem.title).subscribe(data => {
+          console.log(data);
+          data.bought = true;
+          data.soldNumber += orderItem.count;
+          this.productService.updateProductList(data).subscribe(data => {
+          });
         })
       });
       let cartItems: CartItem[] = [];

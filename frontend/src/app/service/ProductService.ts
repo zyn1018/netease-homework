@@ -18,6 +18,8 @@ export class ProductService {
 
   private updateProductUrl = '/api/update_product';
 
+  private getProductByTitleUrl = '/api/get_product_by_title/';
+
   private httpOptions = {
     headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -51,5 +53,9 @@ export class ProductService {
 
   deleteProduct(product: Product) {
     return this.http.delete(this.deleteProductByIdUrl + product.productId, this.httpOptions);
+  }
+
+  getProductByTitle(title: string): Observable<any> {
+    return this.http.get(this.getProductByTitleUrl + title, this.httpOptions);
   }
 }

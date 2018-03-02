@@ -7,10 +7,7 @@ import com.netease.yinanmall.utils.Const;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -48,6 +45,21 @@ public class OrderController {
         } else {
             List<OrderItem> orderItemList = this.orderRepository.findAll();
             return new ResponseEntity<>(orderItemList, HttpStatus.OK);
+        }
+    }
+
+    @RequestMapping(value = "/get_order_item_by_title/{title}", method = RequestMethod.GET)
+    public ResponseEntity<?> getOrderItemByTitle(@PathVariable String title, HttpSession session) {
+        Buyer buyer = (Buyer) session.getAttribute(Const.CURRENT_BUYER);
+        if (buyer == null) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        } else {
+            OrderItem orderItem = this.orderRepository.findOrderItemByTitle(title);
+            if (orderItem != null) {
+                return new ResponseEntity<>(orderItem, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
         }
     }
 }

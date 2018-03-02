@@ -29,3 +29,9 @@
   font-family: Verdana;
   padding-left: 20px;
 }
+
+.soldPrice {
+  padding-left: 10px;
+  font-family: Verdana;
+  color: lightgray;
+}

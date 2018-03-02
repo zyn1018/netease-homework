@@ -16,8 +16,10 @@
       </button>
     </mat-list-item>
     <mat-list-item>
-      <button *ngIf="isLogin && isBuyer" mat-raised-button color="primary" (click)="openAddToCartDialog()">添加到购物车
+      <button *ngIf="isLogin && isBuyer" mat-raised-button color="primary" [disabled]="product.bought"
+              (click)="openAddToCartDialog()">添加到购物车
       </button>
+      <span class="soldPrice" *ngIf="isLogin && isBuyer && product.bought">当时购买价格: ￥{{soldPrice}}</span>
       <button *ngIf="isLogin && !isBuyer" mat-raised-button color="primary" (click)="openEditPage()">编辑</button>
     </mat-list-item>
   </mat-list>

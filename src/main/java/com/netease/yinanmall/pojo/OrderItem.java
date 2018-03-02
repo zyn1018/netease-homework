@@ -27,6 +27,8 @@ public class OrderItem {
 
     private Double totalPrice;
 
+    private Double perPrice;
+
     private Integer count;
 
     private Date date;
