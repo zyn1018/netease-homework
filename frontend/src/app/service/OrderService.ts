@@ -10,6 +10,8 @@ export class OrderService {
 
   private getOrderItemByTitleUrl = '/api/get_order_item_by_title/';
 
+  private getAllOrderItemUrl = '/api/get_all_order_items';
+
   private httpOptions = {
     headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -29,8 +31,12 @@ export class OrderService {
 
   public getOrderItemByTitle(title: string): Observable<any> {
     if (title != null && title.length > 0) {
-      return this.http.get(this.getOrderItemByTitleUrl + title, this.httpOptions);
+      return this.http.get<OrderItem>(this.getOrderItemByTitleUrl + title, this.httpOptions);
     }
+  }
+
+  public getAllOrderItems(): Observable<any> {
+    return this.http.get<OrderItem[]>(this.getAllOrderItemUrl);
   }
 }
 

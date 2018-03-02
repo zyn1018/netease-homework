@@ -17,6 +17,7 @@ export class CenterComponent implements OnInit {
   isLogin = false;
   isBuyer = false;
   deleteProductDialogRef: MatDialogRef<DeleteProductDialogComponent>;
+  showCenterSpinner = false;
 
   constructor(private router: Router,
               private userService: UserService,
@@ -26,6 +27,10 @@ export class CenterComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.showCenterSpinner = true;
+    setTimeout(() => {
+      this.showCenterSpinner = false;
+    }, 500);
     this.productService.getProductList().subscribe(data => {
       this.products = data;
     });

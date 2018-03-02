@@ -31,11 +31,11 @@ export class ProductService {
   }
 
   getProductList(): Observable<any> {
-    return this.http.get(this.getAllProductsUrl, this.httpOptions);
+    return this.http.get<Product[]>(this.getAllProductsUrl, this.httpOptions);
   }
 
   getUnboughtProductList(): Observable<any> {
-    return this.http.get(this.getUnboughtProductListUrl, this.httpOptions);
+    return this.http.get<Product[]>(this.getUnboughtProductListUrl, this.httpOptions);
   }
 
   updateProductList(product: Product) {
@@ -48,7 +48,7 @@ export class ProductService {
 
 
   getProductById(productId: string): Observable<any> {
-    return this.http.get(this.getProductByIdUrl + productId, this.httpOptions);
+    return this.http.get<Product>(this.getProductByIdUrl + productId, this.httpOptions);
   }
 
   deleteProduct(product: Product) {
@@ -56,6 +56,6 @@ export class ProductService {
   }
 
   getProductByTitle(title: string): Observable<any> {
-    return this.http.get(this.getProductByTitleUrl + title, this.httpOptions);
+    return this.http.get<Product>(this.getProductByTitleUrl + title, this.httpOptions);
   }
 }

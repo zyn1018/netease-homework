@@ -4,6 +4,7 @@ import {OrderItem} from '../domain/OrderItem';
 import {CartService} from "../service/CartService";
 import {CartItem} from "../domain/CartItem";
 import {ProductService} from "../service/ProductService";
+import {Router} from "@angular/router";
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -20,6 +21,7 @@ export class CartSidebarComponent implements OnInit {
   constructor(private orderService: OrderService,
               private productService: ProductService,
               private cartService: CartService,
+              private router: Router,
               private cdr: ChangeDetectorRef) {
   }
 
@@ -52,26 +54,30 @@ export class CartSidebarComponent implements OnInit {
     this.cartService.getAllCartItem().subscribe(data => {
       data.forEach(item => {
         let orderItem = new OrderItem();
-        orderItem.title = item.title;
-        orderItem.count = item.count;
-        orderItem.totalPrice = item.totalPrice;
-        orderItem.date = new Date();
-        orderItem.perPrice = item.perPrice;
-        this.orderService.saveOrder(orderItem).subscribe(data => {
-        });
-        this.productService.getProductByTitle(orderItem.title).subscribe(data => {
-          console.log(data);
-          data.bought = true;
-          data.soldNumber += orderItem.count;
-          this.productService.updateProductList(data).subscribe(data => {
+        this.productService.getProductByTitle(item.title).subscribe(
+          data => {
+            orderItem.imgUrl = data.imgUrl;
+            orderItem.title = item.title;
+            orderItem.count = item.count;
+            orderItem.totalPrice = item.totalPrice;
+            orderItem.date = new Date();
+            orderItem.perPrice = item.perPrice;
+            this.orderService.saveOrder(orderItem).subscribe(data => {
+            });
+            this.productService.getProductByTitle(orderItem.title).subscribe(data => {
+              data.bought = true;
+              data.soldNumber += orderItem.count;
+              this.productService.updateProductList(data).subscribe(data => {
+              });
+            });
           });
-        })
       });
       let cartItems: CartItem[] = [];
       this.cartService.deleteAllCartItems().subscribe(data => {
         this.cartService.setCartSubject(cartItems);
       });
       alert("提交订单成功!");
+      location.reload();
     });
   }
 

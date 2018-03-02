@@ -8,6 +8,7 @@ import {
   MatIconModule,
   MatInputModule,
   MatListModule,
+  MatProgressSpinnerModule,
   MatRadioModule,
   MatSidenavModule,
   MatTableModule,
@@ -38,7 +39,8 @@ import {CommonModule} from '@angular/common';
     MatIconModule,
     MatSidenavModule,
     MatTableModule,
-    MatDialogModule
+    MatDialogModule,
+    MatProgressSpinnerModule
   ]
 })
 export class SharedModule {

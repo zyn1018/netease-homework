@@ -16,6 +16,10 @@ mat-grid-list {
   padding-bottom: 3.1em;
 }
 
+.site {
+  background-color: lightgrey;
+}
+
 .notBoughtproducts {
   background-color: lightgrey;
   padding-top: 30px;
@@ -64,4 +68,14 @@ p {
 
 mat-grid-tile {
   max-width: 230px;
+}
+
+mat-tab-group {
+  background-color: white;
+}
+
+mat-spinner {
+  position: absolute;
+  left: 45%;
+  top: 45%;
 }

@@ -51,7 +51,7 @@ export class CartService {
   }
 
   public getAllCartItem(): Observable<any> {
-    return this.http.get(this.getAllCartItemsUrl, this.httpOptions);
+    return this.http.get<CartItem[]>(this.getAllCartItemsUrl, this.httpOptions);
   }
 
   public deleteCartItem(cartItem: CartItem) {
@@ -59,7 +59,7 @@ export class CartService {
   }
 
   public getCartItemById(cartItemId: string): Observable<any> {
-    return this.http.get(this.getOneCartItemUrl + cartItemId, this.httpOptions);
+    return this.http.get<CartItem>(this.getOneCartItemUrl + cartItemId, this.httpOptions);
   }
 
   public deleteAllCartItems() {

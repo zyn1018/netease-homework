@@ -17,8 +17,6 @@ import {CartItem} from "../domain/CartItem";
 export class ProductDetailComponent implements OnInit {
   private productId: string;
   private product: Product;
-  private imageUrl: string;
-  private orderDetail;
   private currentCount = 1;
   addToCartDialogRef: MatDialogRef<AddToCartDialogComponent>;
   private isLogin = false;

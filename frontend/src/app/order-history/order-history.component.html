@@ -1,33 +1,33 @@
 <div>
-  <mat-table #table [dataSource]="dataSource">
-
+  <mat-spinner *ngIf="showSpinner" color="warn"></mat-spinner>
+  <mat-table *ngIf="!showSpinner" #table [dataSource]="dataSource">
     <ng-container matColumnDef="image">
       <mat-header-cell *matHeaderCellDef>内容图片</mat-header-cell>
-      <mat-cell *matCellDef="let orderHistory"><img class="image" [src]="orderHistory.image"/></mat-cell>
+      <mat-cell *matCellDef="let orderItem"><img class="image" [src]="orderItem.imgUrl"/></mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="title">
       <mat-header-cell *matHeaderCellDef>内容名称</mat-header-cell>
-      <mat-cell *matCellDef="let orderHistory"> {{orderHistory.title}}</mat-cell>
+      <mat-cell *matCellDef="let orderItem"> {{orderItem.title}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="time">
       <mat-header-cell *matHeaderCellDef>购买时间</mat-header-cell>
-      <mat-cell *matCellDef="let orderHistory"> {{orderHistory.time | date: 'yyyy-MM-dd HH:mm'}}</mat-cell>
+      <mat-cell *matCellDef="let orderItem"> {{orderItem.date | date: 'yyyy-MM-dd HH:mm'}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="count">
       <mat-header-cell *matHeaderCellDef>购买数量</mat-header-cell>
-      <mat-cell class="count" *matCellDef="let orderHistory"> {{orderHistory.count}}</mat-cell>
+      <mat-cell class="count" *matCellDef="let orderItem"> {{orderItem.count}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="totalPrice">
       <mat-header-cell *matHeaderCellDef>购买价格</mat-header-cell>
-      <mat-cell *matCellDef="let orderHistory"> ￥{{orderHistory.totalPrice}}</mat-cell>
+      <mat-cell *matCellDef="let orderItem"> ￥{{orderItem.totalPrice}}</mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
-  <div class="totalPaidAmount">消费总额: ￥{{totalPaidAmount}}</div>
+  <div *ngIf="!showSpinner" class="totalPaidAmount">消费总额: ￥{{totalPaidAmount.toFixed(2)}}</div>
 </div>

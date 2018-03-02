@@ -13,3 +13,9 @@
   margin-top: 20px;
   font-family: "Fira Code";
 }
+
+mat-spinner {
+  position: absolute;
+  left: 45%;
+  top: 45%;
+}

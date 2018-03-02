@@ -23,6 +23,8 @@ public class OrderItem {
     @Id
     private String orderItemId;
 
+    private String imgUrl;
+
     private String title;
 
     private Double totalPrice;

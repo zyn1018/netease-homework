@@ -13,6 +13,7 @@ import {PublishProductComponent} from './publish-product/publish-product.compone
 import {AddToCartDialogComponent} from './add-to-cart-dialog/add-to-cart-dialog.component';
 import {DeleteProductDialogComponent} from './delete-product-dialog/delete-product-dialog.component';
 import {HttpClientModule} from "@angular/common/http";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import {HttpClientModule} from "@angular/common/http";
   imports: [
     CoreModule,
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule
   ],
