@@ -1,30 +1,24 @@
 package com.netease.yinanmall.pojo;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Map;
-
-/**
- * @author yinan
- */
-
 @Document
-@Getter
 @Setter
-@AllArgsConstructor
+@Getter
 @NoArgsConstructor
-public class Order {
-
+public class CartItem {
     @Id
-    private String orderId;
+    private String cartItemId;
+
+    private String title;
+
+    private Integer count;
+
+    private Double perPrice;
 
     private Double totalPrice;
-
-    private Map<String, Integer[]> orderDetail;
-
 }

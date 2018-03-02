@@ -9,6 +9,7 @@ export class AuthenticateService {
   private loginSellerUrl = '/api/login_seller';
 
   private logoutBuyerUrl = '/api/logout_buyer';
+
   private logoutSellerUrl = '/api/logout_seller';
 
   private httpOptions = {

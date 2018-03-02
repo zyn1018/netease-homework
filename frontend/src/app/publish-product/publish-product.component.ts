@@ -52,8 +52,19 @@ export class PublishProductComponent implements OnInit {
     } else if (productId === '0') {
       this.isPublish = true;
       this.productEdited = new Product('0', '', '', null, '', '', false, 0);
+      const fb = new FormBuilder();
+      this.formModel = fb.group(
+        {
+          title: [this.productEdited.title, [Validators.required, Validators.maxLength(80), Validators.minLength(2)]],
+          introduction: [this.productEdited.introduction,
+            [Validators.required,
+              Validators.maxLength(140),
+              Validators.minLength(2)]],
+          imageUrl: [this.productEdited.imgUrl],
+          detail: [this.productEdited.detail, [Validators.required, Validators.maxLength(1000), Validators.minLength(2)]],
+          price: [this.productEdited.price, [Validators.required, this.priceValidator]]
+        });
     }
-
   }
 
 

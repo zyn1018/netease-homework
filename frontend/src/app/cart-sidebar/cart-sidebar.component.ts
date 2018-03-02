@@ -1,6 +1,8 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {OrderService} from '../service/OrderService';
-import {Order} from '../domain/Order';
+import {OrderItem} from '../domain/OrderItem';
+import {CartService} from "../service/CartService";
+import {CartItem} from "../domain/CartItem";
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -9,18 +11,19 @@ import {Order} from '../domain/Order';
   styleUrls: ['./cart-sidebar.component.css']
 })
 export class CartSidebarComponent implements OnInit {
-  public orderDetail = new Map<string, number[]>();
-  public show = false;
-  public totalPrice = 0;
-  public order: Order;
+  private cartItemList: CartItem[];
+  private show = false;
+  private totalPrice = 0;
   @Output() toggle = new EventEmitter<void>();
 
-  constructor(private orderService: OrderService, private cdr: ChangeDetectorRef) {
+  constructor(private orderService: OrderService,
+              private cartService: CartService,
+              private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
-    this.orderService.getOrderDetailSubject().subscribe(data => {
-      this.orderDetail = data;
+    this.cartService.getCartSubject().subscribe(data => {
+      this.cartItemList = data;
       this.checkShowParam();
       this.calTotalPrice();
       this.cdr.markForCheck();
@@ -29,44 +32,92 @@ export class CartSidebarComponent implements OnInit {
   }
 
   checkShowParam() {
-    if (this.orderDetail.size === 0) {
+    if (this.cartItemList.length === 0) {
       this.show = false;
-    } else if (this.orderDetail.size > 0) {
+    } else if (this.cartItemList.length > 0) {
       this.show = true;
     }
   }
 
   calTotalPrice() {
     this.totalPrice = 0;
-    this.orderDetail.forEach((value, key) => {
-      this.totalPrice += value[0] * value[1];
-    });
+    for (let i = 0; i < this.cartItemList.length; i++) {
+      this.totalPrice += this.cartItemList[i].totalPrice;
+    }
   }
 
   submitOrder() {
-    this.order = new Order(this.orderDetail, this.totalPrice, new Date());
-    console.log(this.order);
+    this.cartService.getAllCartItem().subscribe(data => {
+      data.forEach(item => {
+        let orderItem = new OrderItem();
+        orderItem.title = item.title;
+        orderItem.count = item.count;
+        orderItem.totalPrice = item.totalPrice;
+        orderItem.date = new Date();
+        this.orderService.saveOrder(orderItem).subscribe(data => {
+        })
+      });
+      let cartItems: CartItem[] = [];
+      this.cartService.deleteAllCartItems().subscribe(data => {
+        this.cartService.setCartSubject(cartItems);
+      });
+      alert("提交订单成功!");
+    });
   }
 
   toggleSidebar() {
     this.toggle.emit();
   }
 
-  addProductCount(productTitle: string) {
-    const value = this.orderDetail.get(productTitle);
-    this.orderDetail.set(productTitle, [value[0] + 1, value[1]]);
-    this.checkShowParam();
-    this.calTotalPrice();
+  addProductCount(cartItemId: string) {
+    let cartItem: CartItem = this.cartItemList.find(cartItem => cartItemId === cartItem.cartItemId);
+    cartItem.count += 1;
+    cartItem.totalPrice = cartItem.count * cartItem.perPrice;
+    this.cartService.addCartItem(cartItem).subscribe(data => {
+      this.cartService.getAllCartItem().subscribe(data => {
+        this.cartService.setCartSubject(data);
+      });
+      this.cartService.getCartSubject().subscribe(data => {
+        this.cartItemList = data;
+        this.checkShowParam();
+        this.calTotalPrice();
+        this.cdr.markForCheck();
+        this.cdr.detectChanges();
+      });
+    });
   }
 
-  reduceProductCount(productTitle: string) {
-    const value = this.orderDetail.get(productTitle);
-    if (value[0] === 1) {
-      this.orderDetail.delete(productTitle);
-    } else {
-      this.orderDetail.set(productTitle, [value[0] - 1, value[1]]);
+  reduceProductCount(cartItemId: string) {
+    let cartItem: CartItem = this.cartItemList.find(cartItem => cartItemId === cartItem.cartItemId);
+    if (cartItem.count === 1) {
+      this.cartService.deleteCartItem(cartItem).subscribe(data => {
+        this.cartService.getAllCartItem().subscribe(data => {
+          this.cartService.setCartSubject(data);
+        });
+        this.cartService.getCartSubject().subscribe(data => {
+          this.cartItemList = data;
+          this.checkShowParam();
+          this.calTotalPrice();
+          this.cdr.markForCheck();
+          this.cdr.detectChanges();
+        });
+      });
+    } else if (cartItem.count > 1) {
+      cartItem.count -= 1;
+      cartItem.totalPrice = cartItem.count * cartItem.perPrice;
+      this.cartService.addCartItem(cartItem).subscribe(data => {
+        this.cartService.getAllCartItem().subscribe(data => {
+          this.cartService.setCartSubject(data);
+        });
+        this.cartService.getCartSubject().subscribe(data => {
+          this.cartItemList = data;
+          this.checkShowParam();
+          this.calTotalPrice();
+          this.cdr.markForCheck();
+          this.cdr.detectChanges();
+        });
+      })
     }
-    this.checkShowParam();
-    this.calTotalPrice();
   }
+
 }

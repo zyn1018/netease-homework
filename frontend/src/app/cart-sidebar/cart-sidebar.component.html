@@ -1,42 +1,41 @@
-<form [formGroup] (ngSubmit)="submitOrder()">
-  <h3 style="font-family: Impact">我的购物车</h3>
-  <hr>
-  <mat-list>
-    <mat-list-item class="emptyCart" *ngIf="!show" style="font-family: Impact; color: #cccccc; font-size: xx-large">
-      您的购物车为空
-    </mat-list-item>
-    <mat-list-item *ngIf="show">
-      <span class="titleColumn">标题</span>
-      <span class="countColumn">数量</span>
-      <span class="priceColumn">价格</span>
-    </mat-list-item>
-    <mat-list-item *ngFor="let productTitle of orderDetail.keys()">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm">
-            <span class="selectProductTitle" style="font-size: medium; font-family: Verdana;">{{productTitle}}</span>
-            <i role="button" class="material-icons minusCircle" (click)="reduceProductCount(productTitle)">remove_circle_outline</i>
-            <span class="productCount" style="font-family: Impact">{{(orderDetail.get(productTitle))[0]}}</span>
-            <i role="button" class="material-icons addCircle"
-               (click)="addProductCount(productTitle)">add_circle_outline</i>
-            <span class="selectProductPrice" style="font-family: Impact; font-size: medium"> ￥{{((orderDetail.get(productTitle))[0]*(orderDetail.get(productTitle))[1]).toFixed(2)}} </span>
-          </div>
+<h3 style="font-family: Impact">我的购物车</h3>
+<hr>
+<mat-list>
+  <mat-list-item class="emptyCart" *ngIf="!show" style="font-family: Impact; color: #cccccc; font-size: xx-large">
+    您的购物车为空
+  </mat-list-item>
+  <mat-list-item *ngIf="show">
+    <span class="titleColumn">标题</span>
+    <span class="countColumn">数量</span>
+    <span class="priceColumn">价格</span>
+  </mat-list-item>
+  <mat-list-item *ngFor="let cartItem of cartItemList">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm">
+          <span class="selectProductTitle" style="font-size: medium; font-family: Verdana;">{{cartItem.title}}</span>
+          <i role="button" class="material-icons minusCircle" (click)="reduceProductCount(cartItem.cartItemId)">remove_circle_outline</i>
+          <span class="productCount" style="font-family: Impact">{{cartItem.count}}</span>
+          <i role="button" class="material-icons addCircle"
+             (click)="addProductCount(cartItem.cartItemId)">add_circle_outline</i>
+          <span class="selectProductPrice"
+                style="font-family: Impact; font-size: medium"> ￥{{cartItem.totalPrice}} </span>
         </div>
       </div>
-      <mat-divider></mat-divider>
-    </mat-list-item>
-  </mat-list>
-  <div class="priceDetails" *ngIf="show">
-    <p style="font-family: Verdana">
-      <span class="prices">合计:￥{{(totalPrice).toFixed(2)}}</span>
-    </p>
-  </div>
-  <button *ngIf="show" class="cancelButton" mat-raised-button color="warn" type="button"
-          style="font-family:Impact; font-size: medium" (click)="toggleSidebar()">
-    退出
-  </button>
-  <button *ngIf="show" class="submitButton" mat-raised-button color="warn" type="button"
-          style="font-family:Impact; font-size: medium">
-    购买
-  </button>
-</form>
+    </div>
+    <mat-divider></mat-divider>
+  </mat-list-item>
+</mat-list>
+<div class="priceDetails" *ngIf="show">
+  <p style="font-family: Verdana">
+    <span class="prices">合计:￥{{(totalPrice).toFixed(2)}}</span>
+  </p>
+</div>
+<button *ngIf="show" class="cancelButton" mat-raised-button color="warn"
+        style="font-family:Impact; font-size: medium" (click)="toggleSidebar()">
+  退出
+</button>
+<button *ngIf="show" class="submitButton" mat-raised-button color="warn" (click)="submitOrder()"
+        style="font-family:Impact; font-size: medium">
+  购买
+</button>

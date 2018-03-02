@@ -16,6 +16,8 @@ h3 {
 .selectProductTitle {
   position: absolute;
   left: 20px;
+  width: 150px;
+  bottom: 5px;
 }
 
 .selectProductPrice {
@@ -68,3 +70,4 @@ h3 {
   position: absolute;
   left: 175px;
 }
+

@@ -1,34 +1,27 @@
 import {Injectable} from '@angular/core';
-import {Subject} from 'rxjs/Subject';
-import {Observable} from 'rxjs/Observable';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {OrderItem} from "../domain/OrderItem";
 
 @Injectable()
 export class OrderService {
 
-  /**
-   * For share order information
-   */
-  private orderDetail: Map<string, number[]>;
+  private saveOrderItemUrl = '/api/save_order_item'
 
-  private orderDetailSubject = new Subject<Map<string, number[]>>();
-
-  constructor() {
-    this.orderDetail = new Map<string, number[]>();
-  }
-
-  public setOrderDetailSubject(orderMap: Map<string, number[]>) {
-    orderMap.forEach((v, k) => {
-      if (this.orderDetail.has(k)) {
-        this.orderDetail.set(k, [this.orderDetail.get(k)[0] + v[0], v[1]]);
-      } else {
-        this.orderDetail.set(k, v);
+  private httpOptions = {
+    headers: new HttpHeaders({
+        'Content-Type': 'application/json',
       }
-    });
-    this.orderDetailSubject.next(this.orderDetail);
+    )
+  };
+
+
+  constructor(private http: HttpClient) {
   }
 
-  public getOrderDetailSubject(): Observable<Map<string, number[]>> {
-    return this.orderDetailSubject.asObservable();
+  public saveOrder(orderItem: OrderItem) {
+    if (orderItem !== null) {
+      return this.http.post(this.saveOrderItemUrl, orderItem, this.httpOptions);
+    }
   }
 }
 

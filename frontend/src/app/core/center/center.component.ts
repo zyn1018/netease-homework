@@ -30,9 +30,11 @@ export class CenterComponent implements OnInit {
       this.products = data;
     });
 
-    this.productService.getUnboughtProductList().subscribe(data => {
-      this.notBoughtProducts = data;
-    });
+    if (localStorage.getItem('currentBuyer') != null) {
+      this.productService.getUnboughtProductList().subscribe(data => {
+        this.notBoughtProducts = data;
+      });
+    }
     this.userService.getIsLoginSubject().subscribe(data => {
       this.isLogin = data;
     });

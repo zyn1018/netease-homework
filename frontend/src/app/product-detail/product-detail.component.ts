@@ -6,7 +6,8 @@ import {UserService} from '../service/UserService';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {AddToCartDialogComponent} from '../add-to-cart-dialog/add-to-cart-dialog.component';
 import {ProductService} from "../service/ProductService";
-import {HttpClient} from "@angular/common/http";
+import {CartService} from "../service/CartService";
+import {CartItem} from "../domain/CartItem";
 
 @Component({
   selector: 'app-product-detail',
@@ -28,7 +29,7 @@ export class ProductDetailComponent implements OnInit {
               private userService: UserService,
               private dialog: MatDialog,
               private productService: ProductService,
-              private http: HttpClient) {
+              private cartService: CartService) {
   }
 
   ngOnInit() {
@@ -36,7 +37,7 @@ export class ProductDetailComponent implements OnInit {
     this.productService.getProductById(this.productId).subscribe(
       data => this.product = data
     );
-    this.orderDetail = new Map<string, number[]>();
+    // this.orderDetail = new Map<string, number[]>();
     this.userService.getIsLoginSubject().subscribe(data => {
       this.isLogin = data;
     });
@@ -46,9 +47,32 @@ export class ProductDetailComponent implements OnInit {
   }
 
 
-  addToOrder(product: Product) {
-    this.orderDetail.set(product.title, [this.currentCount, product.price]);
-    this.orderService.setOrderDetailSubject(this.orderDetail);
+  addToCart(product: Product) {
+    let cartItem: CartItem = new CartItem();
+    cartItem.cartItemId = product.productId;
+    cartItem.title = product.title;
+    cartItem.count = this.currentCount;
+    cartItem.perPrice = product.price;
+    cartItem.totalPrice = cartItem.count * cartItem.perPrice;
+    this.cartService.getCartItemById(cartItem.cartItemId).subscribe(data => {
+      if (data == null) {
+        this.cartService.addCartItem(cartItem).subscribe(data => {
+          this.cartService.getAllCartItem().subscribe(data => {
+            this.cartService.setCartSubject(data);
+          });
+          alert("添加该内容至购物车成功!");
+        });
+      } else if (data != null) {
+        cartItem.count += data.count;
+        cartItem.totalPrice += data.totalPrice;
+        this.cartService.addCartItem(cartItem).subscribe(data => {
+          this.cartService.getAllCartItem().subscribe(data => {
+            this.cartService.setCartSubject(data);
+          });
+          alert("添加该内容至购物车成功!");
+        });
+      }
+    });
   }
 
   reduceCurrentCount() {
@@ -67,7 +91,7 @@ export class ProductDetailComponent implements OnInit {
     this.addToCartDialogRef = this.dialog.open(AddToCartDialogComponent);
     this.addToCartDialogRef.afterClosed().subscribe(result => {
         if (true === result) {
-          this.addToOrder(this.product);
+          this.addToCart(this.product);
         }
       }
     );
