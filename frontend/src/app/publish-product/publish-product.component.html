@@ -1,6 +1,7 @@
 <form *ngIf="formModel" [formGroup]="formModel" class="publishForm" (ngSubmit)="f.form.valid" #f="ngForm">
   <h2 *ngIf="!isPublish" style="font-family: Verdana">内容编辑</h2>
   <h2 *ngIf="isPublish" style="font-family: Verdana">内容发布</h2>
+  <img [src]="productEdited.imgUrl">
   <mat-form-field class="width" color="warn">
     <input matInput placeholder="标题" formControlName="title" *ngIf="productEdited">
     <mat-error>标题长度必须为2-80个字符</mat-error>

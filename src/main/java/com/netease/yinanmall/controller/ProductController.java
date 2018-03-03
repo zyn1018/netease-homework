@@ -53,8 +53,8 @@ public class ProductController {
                 if (product.getProductId().equals("0")) {
                     product.setProductId(new ObjectId().toString());
                 }
-                this.productRepository.save(product);
-                return new ResponseEntity<>(HttpStatus.OK);
+                Product productSaved = this.productRepository.save(product);
+                return new ResponseEntity<>(productSaved, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }

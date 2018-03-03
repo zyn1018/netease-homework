@@ -32,3 +32,11 @@
   top: 10px;
   left: 62px;
 }
+
+img {
+  position: absolute;
+  max-width: 150px;
+  max-height: 150px;
+  left: 50%;
+  top: 33.5%;
+}

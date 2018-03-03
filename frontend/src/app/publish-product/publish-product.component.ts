@@ -82,14 +82,14 @@ export class PublishProductComponent implements OnInit {
       this.productService.updateProductList(this.productEdited).subscribe(
         response => {
           alert('发布新内容成功!');
-          this.location.back();
+          this.router.navigateByUrl('/products/' + response.productId);
         }
       );
     } else {
       this.productService.updateProductList(this.productEdited).subscribe(
         response => {
           alert('更新内容信息成功!');
-          this.location.back();
+          this.router.navigateByUrl('/products/' + this.productEdited.productId);
         });
     }
   }

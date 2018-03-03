@@ -3,6 +3,7 @@ package com.netease.yinanmall.controller;
 import com.netease.yinanmall.db.OrderRepository;
 import com.netease.yinanmall.pojo.Buyer;
 import com.netease.yinanmall.pojo.OrderItem;
+import com.netease.yinanmall.pojo.Seller;
 import com.netease.yinanmall.utils.Const;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,7 +41,8 @@ public class OrderController {
     @RequestMapping(value = "/get_all_order_items", method = RequestMethod.GET)
     public ResponseEntity<?> getAllOrderItems(HttpSession session) {
         Buyer buyer = (Buyer) session.getAttribute(Const.CURRENT_BUYER);
-        if (buyer == null) {
+        Seller seller = (Seller) session.getAttribute(Const.CURRENT_SELLER);
+        if (buyer == null && seller == null) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         } else {
             List<OrderItem> orderItemList = this.orderRepository.findAll();
@@ -51,7 +53,8 @@ public class OrderController {
     @RequestMapping(value = "/get_order_item_by_title/{title}", method = RequestMethod.GET)
     public ResponseEntity<?> getOrderItemByTitle(@PathVariable String title, HttpSession session) {
         Buyer buyer = (Buyer) session.getAttribute(Const.CURRENT_BUYER);
-        if (buyer == null) {
+        Seller seller = (Seller) session.getAttribute(Const.CURRENT_SELLER);
+        if (buyer == null && seller == null) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         } else {
             OrderItem orderItem = this.orderRepository.findOrderItemByTitle(title);

@@ -38,7 +38,7 @@ export class ProductService {
     return this.http.get<Product[]>(this.getUnboughtProductListUrl, this.httpOptions);
   }
 
-  updateProductList(product: Product) {
+  updateProductList(product: Product): Observable<any> {
     if (product.productId === "0") {
       return this.http.post(this.addProductUrl, product, this.httpOptions);
     } else {
