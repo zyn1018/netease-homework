@@ -4,6 +4,7 @@ import {
   MatCardModule,
   MatDialogModule,
   MatDividerModule,
+  MatFormFieldModule,
   MatGridListModule,
   MatIconModule,
   MatInputModule,
@@ -40,7 +41,8 @@ import {CommonModule} from '@angular/common';
     MatSidenavModule,
     MatTableModule,
     MatDialogModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatFormFieldModule
   ]
 })
 export class SharedModule {

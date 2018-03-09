@@ -12,9 +12,11 @@ import {ProductService} from '../service/ProductService';
 })
 export class PublishProductComponent implements OnInit {
   formModel: FormGroup;
-  model: any = {};
   productEdited: Product;
   isPublish: boolean;
+  imgUrl: string;
+  imageToUpload: File;
+  image: string;
 
   priceValidator(price: FormControl): any {
     const value = (price.value || '') + '';
@@ -43,7 +45,9 @@ export class PublishProductComponent implements OnInit {
               [Validators.required,
                 Validators.maxLength(140),
                 Validators.minLength(2)]],
+            imageOption: [1],
             imageUrl: [this.productEdited.imgUrl],
+            imageFile: [''],
             detail: [this.productEdited.detail, [Validators.required, Validators.maxLength(1000), Validators.minLength(2)]],
             price: [this.productEdited.price, [Validators.required, this.priceValidator]]
           }
@@ -51,7 +55,7 @@ export class PublishProductComponent implements OnInit {
       })
     } else if (productId === '0') {
       this.isPublish = true;
-      this.productEdited = new Product('0', '', '', null, '', '', false, 0);
+      this.productEdited = new Product('0', '', '', '', null, '', '', false, 0);
       const fb = new FormBuilder();
       this.formModel = fb.group(
         {
@@ -60,7 +64,9 @@ export class PublishProductComponent implements OnInit {
             [Validators.required,
               Validators.maxLength(140),
               Validators.minLength(2)]],
+          imageOption: [1],
           imageUrl: [this.productEdited.imgUrl],
+          imageFile: [''],
           detail: [this.productEdited.detail, [Validators.required, Validators.maxLength(1000), Validators.minLength(2)]],
           price: [this.productEdited.price, [Validators.required, this.priceValidator]]
         });
@@ -92,5 +98,14 @@ export class PublishProductComponent implements OnInit {
           this.router.navigateByUrl('/products/' + this.productEdited.productId);
         });
     }
+  }
+
+  selectFile(event) {
+    this.imageToUpload = event.target.files.item(0);
+  }
+
+  upload() {
+    this.productService.imageUpload(this.imageToUpload).subscribe(res => {
+    });
   }
 }

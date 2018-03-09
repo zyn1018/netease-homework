@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required],
       loginRole: ['', Validators.required]
     });
+    this.authenticateService.logOut();
   }
 
   login() {

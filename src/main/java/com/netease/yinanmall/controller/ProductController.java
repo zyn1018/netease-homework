@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -115,5 +116,12 @@ public class ProductController {
         } else {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
+    }
+
+    @RequestMapping(value = "/save_image", method = RequestMethod.POST)
+    public ResponseEntity<?> saveImage(@RequestParam("image") MultipartFile imageFile) {
+        System.out.println("trying to save image");
+        System.out.println(imageFile.getOriginalFilename());
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

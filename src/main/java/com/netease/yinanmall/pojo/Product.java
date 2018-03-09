@@ -23,6 +23,8 @@ public class Product {
 
     private String imgUrl;
 
+    private String base64Image;
+
     private Double price;
 
     private String introduction;

@@ -40,3 +40,19 @@ img {
   left: 50%;
   top: 33.5%;
 }
+
+.radio-button {
+  padding-right: 20px;
+}
+
+mat-radio-group {
+  margin-left: -80px;
+  margin-bottom: -20px;
+}
+
+.file-choose {
+}
+
+.upload-button {
+  min-width: 15px;
+}
