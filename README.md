@@ -10,7 +10,7 @@
 + MongoDB
 
 ### How to Run
-#####从项目根路径下开始，
+##### 从项目根路径下开始
 ##### 1. mvn spring-boot:run
 ##### 2. cd frontend/
 ##### 3. npm start
