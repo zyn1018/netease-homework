@@ -15,6 +15,8 @@ export class OrderHistoryComponent implements OnInit {
   totalPaidAmount = 0;
   dataSource = new OrderDataSource(this.orderService);
   showSpinner = false;
+  private imageCachePath = 'assets/image_cache/';
+  private imageExtension = '.jpg';
 
 
   constructor(private productService: ProductService,
@@ -36,6 +38,9 @@ export class OrderHistoryComponent implements OnInit {
   }
 }
 
+/**
+ * 表单的source，获取所有的订单历史信息
+ */
 export class OrderDataSource extends DataSource<any> {
   constructor(private orderService: OrderService) {
     super();

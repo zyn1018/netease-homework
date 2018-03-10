@@ -1,5 +1,6 @@
 <div class="imageDiv" *ngIf="product">
-  <img class="image" [src]="product.imgUrl"/>
+  <img *ngIf="product.imgUrl==''&&product.imgUrl!=null" class="image" [src]="imagePath"/>
+  <img *ngIf="product.imgUrl!=''&&product.imgUrl!=null" class="image" [src]="product.imgUrl"/>
 </div>
 <div class="wordsDiv" *ngIf="product">
   <mat-list>

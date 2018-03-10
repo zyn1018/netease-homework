@@ -35,6 +35,9 @@ export class CartSidebarComponent implements OnInit {
     });
   }
 
+  /**
+   * 检测是否需要显示购物车为空
+   */
   checkShowParam() {
     if (this.cartItemList.length === 0) {
       this.show = false;
@@ -43,6 +46,9 @@ export class CartSidebarComponent implements OnInit {
     }
   }
 
+  /**
+   * 计算购物车内所有商品总价
+   */
   calTotalPrice() {
     this.totalPrice = 0;
     for (let i = 0; i < this.cartItemList.length; i++) {
@@ -50,6 +56,9 @@ export class CartSidebarComponent implements OnInit {
     }
   }
 
+  /**
+   * 向后端提交订单
+   */
   submitOrder() {
     this.cartService.getAllCartItem().subscribe(data => {
       data.forEach(item => {
@@ -57,6 +66,7 @@ export class CartSidebarComponent implements OnInit {
         this.productService.getProductByTitle(item.title).subscribe(
           data => {
             orderItem.imgUrl = data.imgUrl;
+            orderItem.productId = data.productId;
             orderItem.title = item.title;
             orderItem.count = item.count;
             orderItem.totalPrice = item.totalPrice;
@@ -64,7 +74,7 @@ export class CartSidebarComponent implements OnInit {
             orderItem.perPrice = item.perPrice;
             this.orderService.saveOrder(orderItem).subscribe(data => {
             });
-            this.productService.getProductByTitle(orderItem.title).subscribe(data => {
+            this.productService.getProductById(item.cartItemId).subscribe(data => {
               data.bought = true;
               data.soldNumber += orderItem.count;
               this.productService.updateProductList(data).subscribe(data => {
@@ -81,10 +91,17 @@ export class CartSidebarComponent implements OnInit {
     });
   }
 
+  /**
+   * 控制购物车侧边栏的开关
+   */
   toggleSidebar() {
     this.toggle.emit();
   }
 
+  /**
+   * 在购物车内增加商品数量
+   * @param {string} cartItemId
+   */
   addProductCount(cartItemId: string) {
     let cartItem: CartItem = this.cartItemList.find(cartItem => cartItemId === cartItem.cartItemId);
     cartItem.count += 1;
@@ -103,6 +120,10 @@ export class CartSidebarComponent implements OnInit {
     });
   }
 
+  /**
+   * 在购物车内减少商品数量
+   * @param {string} cartItemId
+   */
   reduceProductCount(cartItemId: string) {
     let cartItem: CartItem = this.cartItemList.find(cartItem => cartItemId === cartItem.cartItemId);
     if (cartItem.count === 1) {

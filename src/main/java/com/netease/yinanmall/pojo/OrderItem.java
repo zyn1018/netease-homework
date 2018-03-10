@@ -25,6 +25,8 @@ public class OrderItem {
 
     private String imgUrl;
 
+    private String productId;
+
     private String title;
 
     private Double totalPrice;

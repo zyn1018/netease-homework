@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Location} from '@angular/common';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Product} from '../domain/Product';
 import {ProductService} from '../service/ProductService';
+import {ObjectID} from 'bson';
 
 @Component({
   selector: 'app-publish-product',
@@ -17,6 +18,13 @@ export class PublishProductComponent implements OnInit {
   imgUrl: string;
   imageToUpload: File;
   image: string;
+  newProductId: string;
+  private imageCachePath = 'assets/image_cache/';
+  private imageExtension = '.jpg';
+  private imagePath: string;
+
+  @ViewChild('fileInput')
+  fileInputVariable: any;
 
   priceValidator(price: FormControl): any {
     const value = (price.value || '') + '';
@@ -37,6 +45,7 @@ export class PublishProductComponent implements OnInit {
       this.isPublish = false;
       this.productService.getProductById(productId).subscribe(data => {
         this.productEdited = data;
+        this.imagePath = this.imageCachePath + this.productEdited.productId + this.imageExtension;
         const fb = new FormBuilder();
         this.formModel = fb.group(
           {
@@ -54,6 +63,9 @@ export class PublishProductComponent implements OnInit {
         );
       })
     } else if (productId === '0') {
+      this.imagePath = '';
+      this.newProductId = new ObjectID();
+      console.log(this.newProductId);
       this.isPublish = true;
       this.productEdited = new Product('0', '', '', '', null, '', '', false, 0);
       const fb = new FormBuilder();
@@ -78,6 +90,9 @@ export class PublishProductComponent implements OnInit {
     this.location.back();
   }
 
+  /**
+   * 对修改后的商品进行保存
+   */
   saveProduct() {
     this.productEdited.title = this.formModel.get('title').value;
     this.productEdited.introduction = this.formModel.get('introduction').value;
@@ -85,27 +100,65 @@ export class PublishProductComponent implements OnInit {
     this.productEdited.detail = this.formModel.get('detail').value;
     this.productEdited.price = this.formModel.get('price').value;
     if (this.productEdited.productId === '0') {
+      this.productEdited.productId = this.newProductId;
       this.productService.updateProductList(this.productEdited).subscribe(
         response => {
-          alert('发布新内容成功!');
+          this.productService.getImageByProductId(this.newProductId).subscribe(res => {
+            this.imagePath = this.imageCachePath + this.newProductId + this.imageExtension;
+          });
           this.router.navigateByUrl('/products/' + response.productId);
         }
       );
     } else {
       this.productService.updateProductList(this.productEdited).subscribe(
         response => {
-          alert('更新内容信息成功!');
           this.router.navigateByUrl('/products/' + this.productEdited.productId);
         });
     }
   }
 
+  /**
+   * 对上传图片文件的大小进行验证，不能超过1Mb
+   * @param event
+   */
   selectFile(event) {
-    this.imageToUpload = event.target.files.item(0);
+    if (event.target.files.item(0).size > 1000000) {
+      alert("上传图片大小不能超过1Mb, 请重新选择!");
+      this.fileInputVariable.nativeElement.value = '';
+    } else {
+      this.imageToUpload = event.target.files.item(0);
+    }
   }
 
+  /**
+   * 上传商品的图片文件
+   */
   upload() {
-    this.productService.imageUpload(this.imageToUpload).subscribe(res => {
-    });
+    const productId = this.router.url.split('/')[2];
+    if (this.imageToUpload != null) {
+      if (productId === '0') {
+        this.productService.imageUpload(this.imageToUpload, this.newProductId).subscribe(res => {
+          this.productService.getImageByProductId(this.newProductId).subscribe(res => {
+            this.imagePath = this.imageCachePath + this.newProductId + this.imageExtension;
+          });
+          this.productService.getAllImages().subscribe();
+          alert('图片上传成功');
+        });
+      } else {
+        this.productService.imageUpload(this.imageToUpload, this.productEdited.productId).subscribe(res => {
+          this.productService.getProductById(this.productEdited.productId).subscribe(res => {
+              res.imgUrl = '';
+              this.productService.updateProductList(res).subscribe(res => {
+                this.productService.getImageByProductId(this.productEdited.productId).subscribe();
+                this.productService.getAllImages().subscribe();
+                alert('图片上传成功');
+              });
+            }
+          )
+        });
+      }
+    } else {
+      alert('未选中图片文件, 请选中文件后重试!')
+    }
   }
 }

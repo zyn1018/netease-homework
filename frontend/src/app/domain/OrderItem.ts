@@ -1,6 +1,7 @@
 export class OrderItem {
   orderId: string;
   title: string;
+  productId: string;
   imgUrl: string;
   count: number;
   totalPrice: number;

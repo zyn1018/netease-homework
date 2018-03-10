@@ -30,6 +30,9 @@ export class LoginComponent implements OnInit {
     this.authenticateService.logOut();
   }
 
+  /**
+   * 用户登录
+   */
   login() {
     if (this.form.value.loginRole === 1) {
       this.authenticateService.loginBuyer(this.model.username, this.model.password).subscribe(

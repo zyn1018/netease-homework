@@ -23,18 +23,32 @@ export class OrderService {
   constructor(private http: HttpClient) {
   }
 
+  /**
+   * 提交订单
+   * @param {OrderItem} orderItem
+   * @returns {Observable<Object>}
+   */
   public saveOrder(orderItem: OrderItem) {
     if (orderItem !== null) {
       return this.http.post(this.saveOrderItemUrl, orderItem, this.httpOptions);
     }
   }
 
+  /**
+   * 根据商品标题，获取单件商品的订单历史
+   * @param {string} title
+   * @returns {Observable<any>}
+   */
   public getOrderItemByTitle(title: string): Observable<any> {
     if (title != null && title.length > 0) {
       return this.http.get<OrderItem>(this.getOrderItemByTitleUrl + title, this.httpOptions);
     }
   }
 
+  /**
+   * 获取buyer所有的订单历史
+   * @returns {Observable<any>}
+   */
   public getAllOrderItems(): Observable<any> {
     return this.http.get<OrderItem[]>(this.getAllOrderItemUrl);
   }

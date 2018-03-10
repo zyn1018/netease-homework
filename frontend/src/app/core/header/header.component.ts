@@ -54,6 +54,9 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  /**
+   * 用户登出
+   */
   logout() {
     this.authenticateService.logOut();
     this.isLogin = false;
@@ -64,6 +67,9 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl('/login');
   }
 
+  /**
+   * 控制是否打开购物车侧边栏
+   */
   openSidebar() {
     this.toggle.emit();
   }

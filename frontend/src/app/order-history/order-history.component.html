@@ -3,7 +3,10 @@
   <mat-table *ngIf="!showSpinner" #table [dataSource]="dataSource">
     <ng-container matColumnDef="image">
       <mat-header-cell *matHeaderCellDef>内容图片</mat-header-cell>
-      <mat-cell *matCellDef="let orderItem"><img class="image" [src]="orderItem.imgUrl"/></mat-cell>
+      <mat-cell *matCellDef="let orderItem">
+        <img *ngIf="orderItem.imgUrl!=''" class="image" [src]="orderItem.imgUrl"/>
+        <img *ngIf="orderItem.imgUrl==''" class="image" [src]="imageCachePath+orderItem.productId+imageExtension"/>
+      </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="title">

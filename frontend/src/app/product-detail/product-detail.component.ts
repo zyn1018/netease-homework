@@ -22,7 +22,9 @@ export class ProductDetailComponent implements OnInit {
   private isLogin = false;
   private isBuyer = false;
   private soldPrice = 0;
-
+  private imageCachePath = 'assets/image_cache/';
+  private imageExtension = '.jpg';
+  private imagePath;
 
   constructor(private router: Router,
               private orderService: OrderService,
@@ -34,6 +36,7 @@ export class ProductDetailComponent implements OnInit {
 
   ngOnInit() {
     this.productId = this.router.url.split('/')[2];
+    this.imagePath = this.imageCachePath + this.productId + this.imageExtension;
     this.productService.getProductById(this.productId).subscribe(
       data => {
         this.product = data;
@@ -52,6 +55,10 @@ export class ProductDetailComponent implements OnInit {
   }
 
 
+  /**
+   * 将商品添加到购物车
+   * @param {Product} product
+   */
   addToCart(product: Product) {
     let cartItem: CartItem = new CartItem();
     cartItem.cartItemId = product.productId;
@@ -78,6 +85,9 @@ export class ProductDetailComponent implements OnInit {
     });
   }
 
+  /**
+   * 在商品查看界面减少商品的数量
+   */
   reduceCurrentCount() {
     if (this.currentCount > 0) {
       this.currentCount--;
@@ -86,10 +96,16 @@ export class ProductDetailComponent implements OnInit {
     }
   }
 
+  /**
+   * 在商品查看界面增加商品的数量
+   */
   addCurrentCount() {
     this.currentCount++;
   }
 
+  /**
+   * 弹出是否确认将该商品添加到购物车的对话框，并在用户点击确认后将商品添加到购物车
+   */
   openAddToCartDialog() {
     this.addToCartDialogRef = this.dialog.open(AddToCartDialogComponent);
     this.addToCartDialogRef.afterClosed().subscribe(result => {
@@ -100,6 +116,9 @@ export class ProductDetailComponent implements OnInit {
     );
   }
 
+  /**
+   * 进入商品编辑界面
+   */
   openEditPage() {
     this.router.navigateByUrl('/publish/' + this.productId);
   }

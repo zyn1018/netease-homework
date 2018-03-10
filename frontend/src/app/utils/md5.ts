@@ -1,3 +1,8 @@
+/**
+ * MD5加密算法
+ * @param string
+ * @returns {string}
+ */
 export let md5 = (string) => {
 
   function RotateLeft(lValue, iShiftBits) {

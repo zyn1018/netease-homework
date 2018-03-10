@@ -14,7 +14,9 @@
               </div>
               <mat-card-title style="font-size: large;">{{product.title}}</mat-card-title>
               <mat-card-content style="font-size: large; font-family: Impact">
-                <img class="image" mat-card-image [src]="product.imgUrl"/>
+                <img *ngIf="product.imgUrl==''" mat-card-image class="image"
+                     [src]="imageCachePath+product.productId+imageExtension"/>
+                <img *ngIf="product.imgUrl!=''" mat-card-image class="image" [src]="product.imgUrl"/>
                 <p><span>￥{{product.price}}</span>
                   <span *ngIf="isLogin && !isBuyer && product.bought" class="soldCount" style="font-size: x-small">已售出{{product.soldNumber}}件</span>
                 </p>
@@ -34,7 +36,9 @@
             <mat-card (click)="goToProductDetail(product)">
               <mat-card-title style="font-size: large;">{{product.title}}</mat-card-title>
               <mat-card-content style="font-size: large; font-family: Impact">
-                <img class="image" mat-card-image [src]="product.imgUrl"/>
+                <img *ngIf="product.imgUrl==''" mat-card-image class="image"
+                     [src]="imageCachePath+product.productId+imageExtension"/>
+                <img *ngIf="product.imgUrl!=''" mat-card-image class="image" [src]="product.imgUrl"/>
                 <p>￥{{product.price}}</p>
               </mat-card-content>
             </mat-card>

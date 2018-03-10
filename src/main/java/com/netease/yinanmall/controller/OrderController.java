@@ -23,6 +23,13 @@ public class OrderController {
         this.orderRepository = orderRepository;
     }
 
+    /**
+     * 提交订单
+     *
+     * @param orderItem
+     * @param session
+     * @return
+     */
     @RequestMapping(value = "/save_order_item", method = RequestMethod.POST)
     public ResponseEntity<?> saveOrderItem(@RequestBody OrderItem orderItem, HttpSession session) {
         Buyer buyer = (Buyer) session.getAttribute(Const.CURRENT_BUYER);
@@ -38,6 +45,12 @@ public class OrderController {
         }
     }
 
+    /**
+     * 获取所有的订单历史详情
+     *
+     * @param session
+     * @return
+     */
     @RequestMapping(value = "/get_all_order_items", method = RequestMethod.GET)
     public ResponseEntity<?> getAllOrderItems(HttpSession session) {
         Buyer buyer = (Buyer) session.getAttribute(Const.CURRENT_BUYER);
@@ -50,19 +63,24 @@ public class OrderController {
         }
     }
 
+    /**
+     * 根据商品标题获取单个商品的购买历史信息
+     *
+     * @param title
+     * @param session
+     * @return
+     */
     @RequestMapping(value = "/get_order_item_by_title/{title}", method = RequestMethod.GET)
     public ResponseEntity<?> getOrderItemByTitle(@PathVariable String title, HttpSession session) {
-        Buyer buyer = (Buyer) session.getAttribute(Const.CURRENT_BUYER);
-        Seller seller = (Seller) session.getAttribute(Const.CURRENT_SELLER);
-        if (buyer == null && seller == null) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        } else {
+        if (title != null && title.length() > 0) {
             OrderItem orderItem = this.orderRepository.findOrderItemByTitle(title);
             if (orderItem != null) {
                 return new ResponseEntity<>(orderItem, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 }
