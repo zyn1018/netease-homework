@@ -14,3 +14,37 @@
 ##### 1. mvn spring-boot:run
 ##### 2. cd frontend/
 ##### 3. npm start
+
+### 部分截图
+#### 1. 未登录主页
+![](https://github.com/zyn1018/netease-homework/blob/master/ScreenShots/Homepage.png)
+
+#### 2. 登录界面
+![](https://github.com/zyn1018/netease-homework/blob/master/ScreenShots/LoginPage.png)
+
+#### 3. Buyer登录后主页
+![](https://github.com/zyn1018/netease-homework/blob/master/ScreenShots/buyerHome.png)
+
+#### 4. Seller登陆后主页
+![](https://github.com/zyn1018/netease-homework/blob/master/ScreenShots/sellerHome.png)
+
+#### 5. Buyer查看未购买商品
+![](https://github.com/zyn1018/netease-homework/blob/master/ScreenShots/buyerUnbought.png)
+
+#### 6. Buyer查看购买记录
+![](https://github.com/zyn1018/netease-homework/blob/master/ScreenShots/buyerHistory.png)
+
+#### 7. 购物车
+![](https://github.com/zyn1018/netease-homework/blob/master/ScreenShots/buyerCart.png)
+
+#### 8. Buyer查看商品详情
+![](https://github.com/zyn1018/netease-homework/blob/master/ScreenShots/buyerDetail.png)
+
+#### 9. Seller查看商品详情
+![](https://github.com/zyn1018/netease-homework/blob/master/ScreenShots/sellerDetail.png)
+
+#### 10. Seller发布新商品
+![](https://github.com/zyn1018/netease-homework/blob/master/ScreenShots/sellerPublish.png)
+
+#### 11. Seller编辑商品
+![](https://github.com/zyn1018/netease-homework/blob/master/ScreenShots/sellerEdit.png)
