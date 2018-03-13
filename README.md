@@ -13,7 +13,8 @@
 #### 从项目根路径下开始
 #### 1. mvn spring-boot:run
 #### 2. cd frontend/
-#### 3. npm start
+#### 3. npm install(如果报错，请更新node版本)
+#### 4. npm start
 
 ## 部分截图
 #### 1. 未登录主页
