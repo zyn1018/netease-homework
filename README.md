@@ -11,10 +11,10 @@
 
 ## How to Run
 #### 从项目根路径下开始
-#### 1. mvn spring-boot:run
-#### 2. cd frontend/
-#### 3. npm install
-#### 4. npm start
+#### 1. `mvn spring-boot:run`
+#### 2. `cd frontend/`
+#### 3. `npm install`
+#### 4. `npm start`
 ##### (如果步骤3，4中报错, 请更新node版本, https://nodejs.org/en/download/)
 
 ## 部分截图
