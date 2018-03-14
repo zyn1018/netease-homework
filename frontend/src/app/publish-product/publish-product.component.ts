@@ -103,9 +103,6 @@ export class PublishProductComponent implements OnInit {
       this.productEdited.productId = this.newProductId;
       this.productService.updateProductList(this.productEdited).subscribe(
         response => {
-          this.productService.getImageByProductId(this.newProductId).subscribe(res => {
-            this.imagePath = this.imageCachePath + this.newProductId + this.imageExtension;
-          });
           this.productService.getAllImages().subscribe();
           this.router.navigateByUrl('/products/' + response.productId);
         }
@@ -113,6 +110,7 @@ export class PublishProductComponent implements OnInit {
     } else {
       this.productService.updateProductList(this.productEdited).subscribe(
         response => {
+          this.productService.getAllImages().subscribe();
           this.router.navigateByUrl('/products/' + this.productEdited.productId);
         });
     }
@@ -139,9 +137,8 @@ export class PublishProductComponent implements OnInit {
     if (this.imageToUpload != null) {
       if (productId === '0') {
         this.productService.imageUpload(this.imageToUpload, this.newProductId).subscribe(res => {
-          this.productService.getImageByProductId(this.newProductId).subscribe(res => {
-            this.imagePath = this.imageCachePath + this.newProductId + this.imageExtension;
-          });
+          this.imagePath = this.imageCachePath + this.newProductId + this.imageExtension;
+          this.productService.getImageByProductId(this.newProductId).subscribe();
           alert('图片上传成功');
 
         });
