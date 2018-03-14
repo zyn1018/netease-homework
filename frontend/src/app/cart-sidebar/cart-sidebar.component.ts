@@ -78,6 +78,8 @@ export class CartSidebarComponent implements OnInit {
               data.bought = true;
               data.soldNumber += orderItem.count;
               this.productService.updateProductList(data).subscribe(data => {
+                alert("提交订单成功!");
+                location.reload();
               });
             });
           });
@@ -86,8 +88,6 @@ export class CartSidebarComponent implements OnInit {
       this.cartService.deleteAllCartItems().subscribe(data => {
         this.cartService.setCartSubject(cartItems);
       });
-      alert("提交订单成功!");
-      location.reload();
     });
   }
 

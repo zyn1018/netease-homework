@@ -1,7 +1,7 @@
 package com.netease.yinanmall;
 
 import com.netease.yinanmall.config.MongoConfig;
-import com.netease.yinanmall.db.*;
+import com.netease.yinanmall.dao.*;
 import com.netease.yinanmall.pojo.Buyer;
 import com.netease.yinanmall.pojo.CartItem;
 import com.netease.yinanmall.pojo.OrderItem;

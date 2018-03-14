@@ -1,10 +1,13 @@
-package com.netease.yinanmall.db;
+package com.netease.yinanmall.dao;
 
 import com.netease.yinanmall.pojo.Product;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
+/**
+ * @author yinan
+ */
 public interface ProductRepository extends MongoRepository<Product, String> {
 
     Product findProductByProductId(String productId);

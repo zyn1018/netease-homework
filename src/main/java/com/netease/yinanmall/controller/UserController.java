@@ -1,9 +1,8 @@
 package com.netease.yinanmall.controller;
 
-import com.netease.yinanmall.db.BuyerRepository;
-import com.netease.yinanmall.db.SellerRepository;
 import com.netease.yinanmall.pojo.Buyer;
 import com.netease.yinanmall.pojo.Seller;
+import com.netease.yinanmall.service.UserService;
 import com.netease.yinanmall.utils.Const;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,17 +14,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 
+/**
+ * @author yinan
+ */
 @RestController
 public class UserController {
 
-    private final BuyerRepository buyerRepository;
-
-    private final SellerRepository sellerRepository;
+    private final UserService userService;
 
     @Autowired
-    public UserController(BuyerRepository buyerRepository, SellerRepository sellerRepository) {
-        this.buyerRepository = buyerRepository;
-        this.sellerRepository = sellerRepository;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     /**
@@ -38,13 +37,11 @@ public class UserController {
     @RequestMapping(value = "/login_buyer", method = RequestMethod.POST)
     public ResponseEntity buyerLogin(@RequestBody Buyer buyer, HttpSession session) {
         if (buyer != null) {
-            Buyer loginBuyer = buyerRepository.findBuyerByUsernameAndPassword(buyer.getUsername(), buyer.getPassword());
-            if (loginBuyer == null) {
-                return new ResponseEntity(HttpStatus.BAD_REQUEST);
-            } else {
-                session.setAttribute(Const.CURRENT_BUYER, loginBuyer);
-                return new ResponseEntity<>(loginBuyer, HttpStatus.OK);
+            ResponseEntity<?> response = userService.loginBuyer(buyer.getUsername(), buyer.getPassword());
+            if (response.getStatusCode().is2xxSuccessful()) {
+                session.setAttribute(Const.CURRENT_BUYER, response.getBody());
             }
+            return response;
         } else {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
@@ -60,13 +57,11 @@ public class UserController {
     @RequestMapping(value = "/login_seller", method = RequestMethod.POST)
     public ResponseEntity sellerLogin(@RequestBody Seller seller, HttpSession session) {
         if (seller != null) {
-            Seller loginSeller = sellerRepository.findSellerByUsernameAndPassword(seller.getUsername(), seller.getPassword());
-            if (loginSeller == null) {
-                return new ResponseEntity(HttpStatus.I_AM_A_TEAPOT);
-            } else {
-                session.setAttribute(Const.CURRENT_SELLER, loginSeller);
-                return new ResponseEntity<>(loginSeller, HttpStatus.OK);
+            ResponseEntity<?> response = userService.loginSeller(seller.getUsername(), seller.getPassword());
+            if (response.getStatusCode().is2xxSuccessful()) {
+                session.setAttribute(Const.CURRENT_SELLER, response.getBody());
             }
+            return response;
         } else {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }

@@ -12,7 +12,6 @@ import java.util.Date;
 /**
  * @author yinan
  */
-
 @Document
 @Getter
 @Setter

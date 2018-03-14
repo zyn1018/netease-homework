@@ -14,7 +14,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
  */
 @Configuration
 @PropertySource("classpath:application.properties")
-@EnableMongoRepositories(basePackages = "com.netease.yinanmall.db")
+@EnableMongoRepositories(basePackages = "com.netease.yinanmall.dao")
 public class MongoConfig extends AbstractMongoConfiguration {
 
     @Value("${spring.data.mongodb.uri}")

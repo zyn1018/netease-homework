@@ -1,4 +1,4 @@
-package com.netease.yinanmall.db;
+package com.netease.yinanmall.dao;
 
 import com.netease.yinanmall.pojo.Buyer;
 import org.springframework.data.mongodb.repository.MongoRepository;

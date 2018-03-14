@@ -1,8 +1,8 @@
 package com.netease.yinanmall.controller;
 
-import com.netease.yinanmall.db.CartRepository;
 import com.netease.yinanmall.pojo.Buyer;
 import com.netease.yinanmall.pojo.CartItem;
+import com.netease.yinanmall.service.CartService;
 import com.netease.yinanmall.utils.Const;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,15 +10,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
+/**
+ * @author yinan
+ */
 @RestController
 public class CartController {
-    private final CartRepository cartRepository;
+
+    private final CartService cartService;
 
     @Autowired
-    public CartController(CartRepository cartRepository) {
-        this.cartRepository = cartRepository;
+    public CartController(CartService cartService) {
+        this.cartService = cartService;
     }
 
     /**
@@ -34,15 +37,9 @@ public class CartController {
         if (buyer == null) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         } else {
-            if (cartItem != null) {
-                this.cartRepository.save(cartItem);
-                return new ResponseEntity<>(HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            }
+            return this.cartService.addCartItem(cartItem);
         }
     }
-
 
     /**
      * 获得购物车内所有的商品信息
@@ -51,12 +48,7 @@ public class CartController {
      */
     @RequestMapping(value = "/get_all_cart_items", method = RequestMethod.GET)
     public ResponseEntity<?> getAllCartItems() {
-        List<CartItem> cartItemList = this.cartRepository.findAll();
-        if (cartItemList != null) {
-            return new ResponseEntity<>(cartItemList, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        return this.cartService.getCartItemList();
     }
 
 
@@ -73,17 +65,7 @@ public class CartController {
         if (buyer == null) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         } else {
-            if (cartItemId != null && cartItemId.length() > 0) {
-                CartItem cartItem = this.cartRepository.findOne(cartItemId);
-                if (cartItem != null) {
-                    this.cartRepository.delete(cartItemId);
-                    return new ResponseEntity<>(HttpStatus.OK);
-                } else {
-                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-                }
-            } else {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            }
+            return this.cartService.deleteCartItemById(cartItemId);
         }
     }
 
@@ -100,12 +82,7 @@ public class CartController {
         if (buyer == null) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         } else {
-            if (cartItemId != null && cartItemId.length() > 0) {
-                CartItem cartItem = this.cartRepository.findCartItemByCartItemId(cartItemId);
-                return new ResponseEntity<>(cartItem, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            }
+            return this.cartService.getCartItemById(cartItemId);
         }
     }
 
@@ -121,8 +98,7 @@ public class CartController {
         if (buyer == null) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         } else {
-            this.cartRepository.deleteAll();
-            return new ResponseEntity<>(HttpStatus.OK);
+            return this.cartService.deleteAllCartItems();
         }
     }
 }

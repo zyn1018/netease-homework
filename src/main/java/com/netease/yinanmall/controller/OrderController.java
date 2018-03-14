@@ -1,9 +1,9 @@
 package com.netease.yinanmall.controller;
 
-import com.netease.yinanmall.db.OrderRepository;
 import com.netease.yinanmall.pojo.Buyer;
 import com.netease.yinanmall.pojo.OrderItem;
 import com.netease.yinanmall.pojo.Seller;
+import com.netease.yinanmall.service.OrderService;
 import com.netease.yinanmall.utils.Const;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,16 +11,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
+/**
+ * @author yinan
+ */
 @RestController
 public class OrderController {
 
-    private final OrderRepository orderRepository;
+    private final OrderService orderService;
 
     @Autowired
-    public OrderController(OrderRepository orderRepository) {
-        this.orderRepository = orderRepository;
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
     }
 
     /**
@@ -36,12 +38,7 @@ public class OrderController {
         if (buyer == null) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         } else {
-            if (orderItem != null) {
-                this.orderRepository.save(orderItem);
-                return new ResponseEntity<>(HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            }
+            return this.orderService.saveOrderItem(orderItem);
         }
     }
 
@@ -58,8 +55,7 @@ public class OrderController {
         if (buyer == null && seller == null) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         } else {
-            List<OrderItem> orderItemList = this.orderRepository.findAll();
-            return new ResponseEntity<>(orderItemList, HttpStatus.OK);
+            return this.orderService.getOrderItemList();
         }
     }
 
@@ -72,15 +68,6 @@ public class OrderController {
      */
     @RequestMapping(value = "/get_order_item_by_title/{title}", method = RequestMethod.GET)
     public ResponseEntity<?> getOrderItemByTitle(@PathVariable String title, HttpSession session) {
-        if (title != null && title.length() > 0) {
-            OrderItem orderItem = this.orderRepository.findOrderItemByTitle(title);
-            if (orderItem != null) {
-                return new ResponseEntity<>(orderItem, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            }
-        } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        return this.orderService.getOrderItemByTitle(title);
     }
 }
