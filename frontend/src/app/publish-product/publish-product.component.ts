@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, NgZone, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Location} from '@angular/common';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -36,7 +36,8 @@ export class PublishProductComponent implements OnInit {
   constructor(private location: Location,
               private router: Router,
               private routeInfo: ActivatedRoute,
-              private productService: ProductService) {
+              private productService: ProductService,
+              private ngZone: NgZone) {
   }
 
   ngOnInit() {
@@ -65,7 +66,6 @@ export class PublishProductComponent implements OnInit {
     } else if (productId === '0') {
       this.imagePath = '';
       this.newProductId = new ObjectID();
-      console.log(this.newProductId);
       this.isPublish = true;
       this.productEdited = new Product('0', '', '', '', null, '', '', false, 0);
       const fb = new FormBuilder();
@@ -106,6 +106,7 @@ export class PublishProductComponent implements OnInit {
           this.productService.getImageByProductId(this.newProductId).subscribe(res => {
             this.imagePath = this.imageCachePath + this.newProductId + this.imageExtension;
           });
+          this.productService.getAllImages().subscribe();
           this.router.navigateByUrl('/products/' + response.productId);
         }
       );
@@ -141,8 +142,8 @@ export class PublishProductComponent implements OnInit {
           this.productService.getImageByProductId(this.newProductId).subscribe(res => {
             this.imagePath = this.imageCachePath + this.newProductId + this.imageExtension;
           });
-          this.productService.getAllImages().subscribe();
           alert('图片上传成功');
+
         });
       } else {
         this.productService.imageUpload(this.imageToUpload, this.productEdited.productId).subscribe(res => {
@@ -150,7 +151,6 @@ export class PublishProductComponent implements OnInit {
               res.imgUrl = '';
               this.productService.updateProductList(res).subscribe(res => {
                 this.productService.getImageByProductId(this.productEdited.productId).subscribe();
-                this.productService.getAllImages().subscribe();
                 alert('图片上传成功');
               });
             }

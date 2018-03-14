@@ -123,7 +123,7 @@ export class ProductService {
    * @param {string} productId
    * @returns {Observable<Object>}
    */
-  getImageByProductId(productId: string) {
+  getImageByProductId(productId: string): Observable<any> {
     return this.http.get(this.getImageByProductIdUrl + productId);
   }
 
