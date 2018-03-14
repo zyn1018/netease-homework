@@ -25,7 +25,7 @@
     <input matInput placeholder="图片地址" formControlName="imageUrl">
   </mat-input-container>
   <span *ngIf="productEdited&&formModel.value.imageOption==2">
-    <input #fileInput class="file-choose" type="file" accept="image/*" data-max-size="1024"
+    <input #fileInput class="file-choose" type="file" accept="image/jpeg" data-max-size="1024"
            (change)="selectFile($event)">
     <button mat-raised-button class="upload-button" type="button" color="primary" (click)="upload()">上传</button>
   </span>
