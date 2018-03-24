@@ -15,6 +15,7 @@
 #### 2. `cd frontend/`
 #### 3. `npm install`
 #### 4. `npm start`
+#### 5. 访问 `localhost:4200`
 ##### (如果步骤3，4中报错, 请安装或更新node, https://nodejs.org/en/download/)
 
 ## 部分截图
